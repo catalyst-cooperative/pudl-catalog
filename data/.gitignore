@@ -1,0 +1,6 @@
+**/*.parquet
+**/*.parq
+**/*.pq
+**/*.sqlite
+**/*.db
+cache/*

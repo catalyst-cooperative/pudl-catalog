@@ -1,0 +1,91 @@
+description: A catalog of open energy system data for use by climate advocates,
+  policymakers, journalists, researchers, and other members of civil society.
+
+plugins:
+  source:
+    - module: intake_parquet
+#   - module: intake_sqlite
+
+metadata:
+  creator:
+    title: "Catalyst Cooperative"
+    email: "pudl@catalyst.coop"
+    path: "https://catalyst.coop"
+
+sources:
+
+  hourly_emissions_epacems:
+    driver: parquet
+    description: Hourly pollution emissions and plant operational data reported via
+      Continuous Emissions Monitoring Systems (CEMS) as required by 40 CFR Part 75.
+      Includes CO2, NOx, and SO2, as well as the heat content of fuel consumed and
+      gross power output. Hourly values reported by US EIA ORISPL code and emissions
+      unit (smokestack) ID.
+    metadata:
+      title: Continuous Emissions Monitoring System (CEMS) Hourly Data
+      type: application/parquet
+      provider: US Environmental Protection Agency Air Markets Program
+      path: "https://ampd.epa.gov/ampd"
+      license:
+        name: "CC-BY-4.0"
+        title: "Creative Commons Attribution 4.0"
+        path: "https://creativecommons.org/licenses/by/4.0"
+    args: # These arguments are for dask.dataframe.read_parquet()
+      engine: 'pyarrow'
+      urlpath: 'simplecache::{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet'
+      storage_options:
+        simplecache:
+          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+
+  hourly_emissions_epacems_partitioned:
+    driver: parquet
+    description: Hourly pollution emissions and plant operational data reported via
+      Continuous Emissions Monitoring Systems (CEMS) as required by 40 CFR Part 75.
+      Includes CO2, NOx, and SO2, as well as the heat content of fuel consumed and
+      gross power output. Hourly values reported by US EIA ORISPL code and emissions
+      unit (smokestack) ID.
+    metadata:
+      title: Continuous Emissions Monitoring System (CEMS) Hourly Data
+      type: application/parquet
+      provider: US Environmental Protection Agency Air Markets Program
+      path: "https://ampd.epa.gov/ampd"
+      license:
+        name: "CC-BY-4.0"
+        title: "Creative Commons Attribution 4.0"
+        path: "https://creativecommons.org/licenses/by/4.0"
+    args: # These arguments are for dask.dataframe.read_parquet()
+      engine: 'pyarrow'
+      urlpath: 'simplecache::{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet'
+      storage_options:
+        simplecache:
+          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+
+
+#  pudl:
+#   driver: sqlite
+#   description: The Public Utility Data Liberation Database, containing open data
+#     related to the US electricity and natural gas systems.
+
+# ferc1:
+#   driver: sqlite
+#   description:
+#     The Federal Energy Regulatory Commission (FERC) Form 1 is a comprehensive
+#     financial and operating report submitted annually for electric rate regulation,
+#     market oversight analysis, and financial audits by Major electric utilities,
+#     licensees and others.
+#   metadata:
+#     provider: US Federal Energy Regulatory Commission
+#     title: FERC Form 1
+#     path: "https://www.ferc.gov/industries-data/electric/general-information/electric-industry-forms/form-1-electric-utility-annual"
+
+#   censusdp1tract:
+#     driver: sqlite
+#     description: Census Demographic Profile 1 Geodatabase.
+#     metadata:
+#       provider: US Census Bureau
+#       path: "https://www.census.gov/geographies/mapping-files/2010/geo/tiger-data.html"
+#       license:
+#         name: "other-pd"
+#         title: "U.S. Government Works"
+#         path: "https://www.usa.gov/government-works"
+

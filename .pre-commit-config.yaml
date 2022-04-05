@@ -1,0 +1,48 @@
+repos:
+
+# Quick content checks based on grepping for python specific patterns:
+- repo: https://github.com/pre-commit/pygrep-hooks
+  rev: v1.9.0
+  hooks:
+  - id: python-check-blanket-noqa   # Prohibit overly broad QA exclusions.
+  - id: python-no-eval              # Never use eval() it's dangerous.
+  - id: python-no-log-warn          # logger.warning(), not old .warn()
+
+# Other file formatting, plus common Git mistakes & text file standardization:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.1.0
+  hooks:
+  - id: check-added-large-files # Don't accidentally commit giant files.
+  - id: check-merge-conflict    # Watch for lingering merge markers.
+  - id: check-yaml              # Validate all YAML files.
+  - id: check-case-conflict     # Avoid case sensitivity in file names.
+  - id: debug-statements        # Watch for lingering debugger calls.
+  - id: end-of-file-fixer       # Ensure there's a newline at EOF.
+  - id: mixed-line-ending       # Only newlines, no line-feeds.
+  - id: trailing-whitespace     # Remove trailing whitespace.
+  - id: name-tests-test         # Follow PyTest naming convention.
+
+# Make sure import statements are sorted uniformly.
+- repo: https://github.com/PyCQA/isort
+  rev: 5.10.1
+  hooks:
+  - id: isort
+
+# Format the code
+- repo: https://github.com/psf/black
+  rev: 22.3.0
+  hooks:
+  - id: black
+    language_version: python3.10
+
+# Configuration for pre-commit.ci
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+    For more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: main
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  submodules: false
