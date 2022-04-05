@@ -1,10 +1,11 @@
+"""Helper functions for working with the PUDL Data Catalog."""
 from itertools import product
-from typing import List, Tuple, Iterable, Union
+from typing import Iterable, List, Tuple, Union
+
 
 def year_state_filter(
-        years: Iterable[int] = None,
-        states: Iterable[str] = None
-) -> List[List[Tuple(Union[str,int])]]:
+    years: Iterable[int] = None, states: Iterable[str] = None
+) -> List[List[Tuple[Union[str, int]]]]:
     """
     Create filters to read given years and states from partitioned parquet dataset.
 

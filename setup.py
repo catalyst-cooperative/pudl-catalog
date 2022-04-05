@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-
-from setuptools import setup, find_packages
+"""A catalog of open data related to the US energy system."""
+from setuptools import find_packages, setup
 
 setup(
     name="catalystcoop.pudl_catalog",
     version="0.0.1",
-    description="A catalog of open data related to the US energy system.",
+    description=__doc__,
     packages=find_packages("src"),
     package_dir={"": "src"},
     maintainer="Zane Selvans",
@@ -18,6 +18,7 @@ setup(
         "intake>=0.6.5",
         "intake_parquet>=0.2.3",
         "intake_sql>=0.3.1",
+        "pandas>=1.4,<1.5",
     ],
     tests_require=["pytest"],
     zip_safe=False,
