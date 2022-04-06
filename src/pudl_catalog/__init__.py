@@ -17,7 +17,7 @@ if os.getenv("PUDL_INTAKE_PATH") is None:
     msg = (
         "Environment variable PUDL_INTAKE_PATH not set, `catalystcoop.pudl_catalog`\n"
         "may not work as expected. Known data locations include:\n"
-        "{KNOWN_DATA_LOCATIONS}."
+        f"{KNOWN_DATA_LOCATIONS}."
     )
     warnings.warn(msg)
 
