@@ -1,10 +1,12 @@
 """Test cases for the EPA CEMS data source."""
 import logging
 import os
+import time
 from dataclasses import dataclass
+from pathlib import Path
 
+import intake
 import pandas as pd
-from intake import open_catalog
 
 from pudl_catalog.helpers import year_state_filter
 
@@ -18,7 +20,7 @@ class TestEpaCemsParquet(object):
     table_name: str = "hourly_emissions_epacems"
     gcs_base: str = "gcs://catalyst.coop/intake/test"
     https_base: str = "https://storage.googleapis.com/catalyst.coop/intake/test"
-    local_base: str = os.getcwd() + "/"
+    local_base: str = str(Path(__file__).parent.parent.parent / "data")
     pudl_catalog_yml: str = "../src/catalog/pudl-catalog.yml"
 
     def __post_init__(self):
@@ -54,7 +56,7 @@ class TestEpaCemsParquet(object):
         """Read EPA CEMS data from Parquet using Intake."""
         filters = year_state_filter(years=years, states=states)
         os.environ["PUDL_INTAKE_PATH"] = self.base_paths[protocol]
-        pudl_cat = open_catalog(self.pudl_catalog_yml)
+        pudl_cat = intake.cat.pudl_cat
         if partition:
             src = pudl_cat["hourly_emissions_epacems_partitioned"](filters=filters)
         else:
@@ -66,7 +68,7 @@ class TestEpaCemsParquet(object):
         logger.info(f"    elapsed time: {elapsed_time:.2f}s")
         return df
 
-    def test_direct(self, years, states, expected_df):
+    def test_direct(self, years, states, verify_df=True):
         """Test direct access using different protocols and partitions."""
         expected_df = self.direct(
             protocol="local", partition=False, years=years, states=states
@@ -83,9 +85,11 @@ class TestEpaCemsParquet(object):
         for kwargs in direct_kwargs:
             kwargs.update(dict(years=years, states=states))
             test_df = self.direct(**kwargs)
-            pd.testing.assert_frame_equal(expected_df, test_df)
+            if verify_df:
+                logger.info("    verifying that dataframe matches expected output.")
+                pd.testing.assert_frame_equal(expected_df, test_df)
 
-    def test_intake(self, years, states):
+    def test_intake(self, years, states, verify_df=True):
         """Test Intake catalog access using different protocols and partitions."""
         expected_df = self.direct(
             protocol="local", partition=False, years=years, states=states
@@ -103,5 +107,6 @@ class TestEpaCemsParquet(object):
         for kwargs in intake_kwargs:
             kwargs.update(dict(years=years, states=states))
             test_df = self.intake(**kwargs)
-            logger.info("Verifying that dataframe matches expected output.")
-            pd.testing.assert_frame_equal(expected_df, test_df)
+            if verify_df:
+                logger.info("    verifying that dataframe matches expected output.")
+                pd.testing.assert_frame_equal(expected_df, test_df)

@@ -20,13 +20,14 @@ setup(
         "intake_sql>=0.3.1",
         "pandas>=1.4,<1.5",
     ],
-    tests_require=["pytest"],
+    tests_require=[
+        "pytest",
+    ],
     zip_safe=False,
     license="MIT",
     entry_points={
         "intake.catalogs": [
-            "pudl_cat = src/pudl_catalog:pudl_cat",
-            "hourly_emissions_epacems = src/pudl_catalog:hourly_emissions_epacems",
+            "pudl_cat = pudl_catalog:pudl_cat",
         ]
     },
 )
