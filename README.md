@@ -61,6 +61,12 @@ full ETL locally yourself.
 
 See the notebook included in this repository for more details.
 
+### Import Intake Catalogs
+
+The `pudl_catalog` registers as an available data source within Intake when
+it's installed, so you can grab it from the top level Intake catalog. To see what data
+sources are available within the catalog you turn it into a list (yes this is weird).
+
 ```py
 # Environment variables that tell Intake where to find and cache data
 os.environ["PUDL_INTAKE_CACHE"] = str(Path.home() / ".cache/intake-pudl")
@@ -77,6 +83,11 @@ list(pudl_cat)
 ```txt
 ['hourly_emissions_epacems', 'hourly_emissions_epacems_partitioned']
 ```
+
+### Inspect the catalog data source
+
+Printing the data source will show you the YAML that defines the source, but with all
+the Jinja template fields interpolated and filled in:
 
 ```py
 pudl_cat.hourly_emissions_epacems
@@ -107,6 +118,11 @@ hourly_emissions_epacems:
     title: Continuous Emissions Monitoring System (CEMS) Hourly Data
     type: application/parquet
 ```
+
+### Data source specific metadata
+
+The `source.discover()` method will show you some internal details of the data source,
+including what columns are available and their data types:
 
 ```py
 pudl_cat.hourly_emissions_epacems.discover()
@@ -143,6 +159,20 @@ pudl_cat.hourly_emissions_epacems.discover()
    'path': 'https://creativecommons.org/licenses/by/4.0'},
   'catalog_dir': '/home/zane/code/catalyst/pudl-data-catalog/src/pudl_catalog/'}}
 ```
+
+### Read some data from the catalog
+
+To read data from the source you call it with some arguments. Here we're
+supplying filters (in "disjunctive normal form") that select only a subset of
+the available years and states. This limits the set of Parquet files that need
+to be scanned to find the requested data (since the files are partitioned by
+`year` and `state`) and also ensures that you don't get back a 100GB dataframe
+that crashes your laptop. These arguments are passed through to
+[`dask.dataframe.read_parquet()`](https://docs.dask.org/en/latest/generated/dask.dataframe.read_parquet.html)
+since Dask dataframes are the default container
+for Parquet data. Given those arguments, you convert the source to a Dask
+dataframe and the use `.compute()` on that dataframe to actually read the data
+and return a pandas dataframe:
 
 ```py
 filters = year_state_filter(
