@@ -10,7 +10,7 @@ setup(
     package_dir={"": "src"},
     maintainer="Zane Selvans",
     maintainer_email="zane.selvans@catalyst.coop",
-    url="https://github.com/catalyst-cooperative/pudl-data-catalog",
+    url="https://github.com/catalyst-cooperative/pudl-catalog",
     package_data={"": ["*.yaml"]},
     include_package_data=True,
     python_requires=">=3.8,<3.11",

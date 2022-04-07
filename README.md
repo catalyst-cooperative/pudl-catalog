@@ -82,7 +82,7 @@ list(pudl_cat)
 pudl_cat.hourly_emissions_epacems
 ```
 
-```
+```txt
 hourly_emissions_epacems:
   args:
     engine: pyarrow
@@ -112,7 +112,7 @@ hourly_emissions_epacems:
 pudl_cat.hourly_emissions_epacems.discover()
 ```
 
-```
+```txt
 {'dtype': {'plant_id_eia': 'int32',
   'unitid': 'object',
   'operating_datetime_utc': 'datetime64[ns, UTC]',
@@ -180,7 +180,7 @@ epacems_df[[
 
 The Intake docs list a bunch of
 [potential use cases](https://intake.readthedocs.io/en/latest/use_cases.html).
-here are some features that we're excited to take advantage of
+Here are some features that we're excited to take advantage of:
 
 ### Rich Metadata
 
@@ -224,7 +224,7 @@ without requiring the user to change how they are accessing the data.
 * [Intake Repo](https://github.com/intake/intake)
 * [Intake Docs](https://intake.readthedocs.io/en/latest/start.html)
 * [Intake Examples](https://github.com/intake/intake-examples)
-* [Intake talk from AnacondaCon 2018](https://www.youtube.com/watch?v=oyZJrROQzUs)
+* [Intake talk from AnacondaCon 2019](https://www.youtube.com/watch?v=oyZJrROQzUs)
 * [Intake Parquet Repo](https://github.com/intake/intake-parquet)
 * [Intake Parquet Docs](https://intake-parquet.readthedocs.io/en/latest/quickstart.html)
 * [Intake SQL Repo](https://github.com/intake/intake-sql)
