@@ -1,11 +1,11 @@
 # The PUDL Data Catalog
 
 This repository houses a data catalog distributing open energy system data
-liberated by Catalyst Cooperative as part of our
-[Public Data Liberation Project](https://github.com/catalyst-cooperative/pudl) (PUDL).
-It uses the [Intake library](https://github.com/intake/intake) developed by
-Anaconda to provide a uniform interface to versioned data releases hosted on
-publicly accessible cloud resources.
+liberated by [Catalyst Cooperative](https://catalyst.coop) as part of our
+[Public Utility Data Liberation Project](https://github.com/catalyst-cooperative/pudl)
+(PUDL). It uses the [Intake library](https://github.com/intake/intake)
+developed by Anaconda to provide a uniform interface to versioned data releases
+hosted on publicly accessible cloud resources.
 
 ## Catalog Contents
 
@@ -15,8 +15,8 @@ publicly accessible cloud resources.
 
 ### Future datasets
 
-* Raw FERC Form 1 DB (SQL) [browse online](https://data.catalyst.coop/ferc1)
-* PUDL DB (SQL) [browse online](https://data.catalyst.coop/pudl)
+* Raw FERC Form 1 DB (SQL) -- [browse DB online](https://data.catalyst.coop/ferc1)
+* PUDL DB (SQL) -- [browse DB online](https://data.catalyst.coop/pudl)
 * Census Demographic Profile 1 (SQL)
 
 ## Ongoing Development
