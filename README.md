@@ -7,10 +7,55 @@ It uses the [Intake library](https://github.com/intake/intake) developed by
 Anaconda to provide a uniform interface to versioned data releases hosted on
 publicly accessible cloud resources.
 
-Development is currently being organized under these issues:
+## Catalog Contents
+
+### Currently available datasets
+
+* Hourly Emissions from the EPA CEMS (Apache Parquet)
+
+### Future datasets
+
+* Raw FERC Form 1 DB (SQL) [browse online](https://data.catalyst.coop/ferc1)
+* PUDL DB (SQL) [browse online](https://data.catalyst.coop/pudl)
+* Census Demographic Profile 1 (SQL)
+
+## Ongoing Development
+
+Development is currently being organized under these epics in the main PUDL repo:
 
 * [EPA CEMS Intake Catalog](https://github.com/catalyst-cooperative/pudl/issues/1564)
 * [Prototype SQLite Intake Catalog](https://github.com/catalyst-cooperative/pudl/issues/1156)
+
+See the
+[issues in this repository](https://github.com/catalyst-cooperative/pudl-catalog/issues)
+for more detailed tasks.
+
+### Planned data distribution system
+
+We're in the process of implementing automated nightly builds of all of our data
+products for each development branch with new commits in the main PUDL
+repository. This will allow us to do exhaustive integration testing and data
+validation on a daily basis. If all of the tests and data validation pass, then
+a new version of the data products (SQLite databases and Parquet files) will be
+produced, and placed into cloud storage.
+
+These outputs will be made available via a data catalog on a corresponding
+branch in this `pudl-catalog` repository. Ingeneral only the catalogs and data
+resources corresponding to the `HEAD` of development and feature branches will
+be available. Releases that are tagged on the `main` branch will be retained
+long term.
+
+The idea is that for any released version of PUDL, you should also be able to
+install a corresponding data catalog, and know that the software and the data
+are compatible.  You can also install just the data catalog with minimal
+dependencies, and not need to worry about the PUDL software that produced it at
+all, if you simply want to access the DBs or Parquet files directly.
+
+In development, this arrangement will mean that every morning you should have
+access to a fully processed set of data products that reflect the branch of code
+that you're working on, rather than the data and code getting progressively
+further out of sync as you do development, until you take the time to re-run the
+full ETL locally yourself.
 
 ## Example Usage
 
@@ -108,7 +153,28 @@ epacems_df = (
     pudl_cat.hourly_emissions_epacems(filters=filters)
     .to_dask().compute()
 )
+epacems_df[[
+    "plant_id_eia",
+    "unitid",
+    "operating_datetime_utc",
+    "year",
+    "state",
+    "facility_id",
+    "unit_id_epa",
+    "operating_time_hours",
+    "gross_load_mw",
+    "heat_content_mmbtu",
+    "co2_mass_tons",
+]].head()
 ```
+
+|    |   plant_id_eia |   unitid | operating_datetime_utc    |   year | state   |   facility_id |   unit_id_epa |   operating_time_hours |   gross_load_mw |   heat_content_mmbtu |   co2_mass_tons |
+|---:|---------------:|---------:|:--------------------------|-------:|:--------|--------------:|--------------:|-----------------------:|----------------:|---------------------:|----------------:|
+|  0 |            469 |        4 | 2019-01-01 07:00:00+00:00 |   2019 | CO      |            79 |           298 |                      1 |             203 |               2146.2 |           127.2 |
+|  1 |            469 |        4 | 2019-01-01 08:00:00+00:00 |   2019 | CO      |            79 |           298 |                      1 |             203 |               2152.7 |           127.6 |
+|  2 |            469 |        4 | 2019-01-01 09:00:00+00:00 |   2019 | CO      |            79 |           298 |                      1 |             204 |               2142.2 |           127   |
+|  3 |            469 |        4 | 2019-01-01 10:00:00+00:00 |   2019 | CO      |            79 |           298 |                      1 |             204 |               2129.2 |           126.2 |
+|  4 |            469 |        4 | 2019-01-01 11:00:00+00:00 |   2019 | CO      |            79 |           298 |                      1 |             204 |               2160.6 |           128.1 |
 
 ## Benefits of Intake Catalogs
 
