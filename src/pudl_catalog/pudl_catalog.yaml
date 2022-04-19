@@ -7,6 +7,12 @@ plugins:
 #   - module: intake_sqlite
 
 metadata:
+  parameters:
+    cache_method:
+      description: "Whether to cache data locally; empty string to disable caching."
+      type: str
+      default: "simplecache::"
+      allowed: ["simplecache::", ""]
   creator:
     title: "Catalyst Cooperative"
     email: "pudl@catalyst.coop"
@@ -32,8 +38,9 @@ sources:
         path: "https://creativecommons.org/licenses/by/4.0"
     args: # These arguments are for dask.dataframe.read_parquet()
       engine: 'pyarrow'
-      urlpath: 'simplecache::{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet'
+      urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet'
       storage_options:
+        token: 'anon'  # Explicitly use anonymous access.
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
@@ -55,8 +62,9 @@ sources:
         path: "https://creativecommons.org/licenses/by/4.0"
     args: # These arguments are for dask.dataframe.read_parquet()
       engine: 'pyarrow'
-      urlpath: 'simplecache::{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet'
+      urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet'
       storage_options:
+        token: 'anon'  # Explicitly use anonymous access.
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
@@ -78,14 +86,13 @@ sources:
 #     title: FERC Form 1
 #     path: "https://www.ferc.gov/industries-data/electric/general-information/electric-industry-forms/form-1-electric-utility-annual"
 
-#   censusdp1tract:
-#     driver: sqlite
-#     description: Census Demographic Profile 1 Geodatabase.
-#     metadata:
-#       provider: US Census Bureau
-#       path: "https://www.census.gov/geographies/mapping-files/2010/geo/tiger-data.html"
-#       license:
-#         name: "other-pd"
-#         title: "U.S. Government Works"
-#         path: "https://www.usa.gov/government-works"
-
+# censusdp1tract:
+#   driver: sqlite
+#   description: Census Demographic Profile 1 Geodatabase.
+#   metadata:
+#     provider: US Census Bureau
+#     path: "https://www.census.gov/geographies/mapping-files/2010/geo/tiger-data.html"
+#     license:
+#       name: "other-pd"
+#       title: "U.S. Government Works"
+#       path: "https://www.usa.gov/government-works"

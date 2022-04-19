@@ -18,15 +18,15 @@ class TestEpaCemsParquet(object):
     """Test the EPA CEMS Intake Catalog."""
 
     table_name: str = "hourly_emissions_epacems"
-    gcs_base: str = "gcs://catalyst.coop/intake/test"
-    https_base: str = "https://storage.googleapis.com/catalyst.coop/intake/test"
+    gs_base: str = "gs://intake.catalyst.coop/test"
+    https_base: str = "https://storage.googleapis.com/intake.catalyst.coop/test"
     local_base: str = str(Path(__file__).parent.parent.parent / "data")
     pudl_catalog_yml: str = "../src/catalog/pudl-catalog.yml"
 
     def __post_init__(self):
         """Make it easier to access paths by protocol."""
         self.base_paths = {
-            "gcs": self.gcs_base,
+            "gs": self.gs_base,
             "https": self.https_base,
             "local": self.local_base,
         }
@@ -56,7 +56,10 @@ class TestEpaCemsParquet(object):
         """Read EPA CEMS data from Parquet using Intake."""
         filters = year_state_filter(years=years, states=states)
         os.environ["PUDL_INTAKE_PATH"] = self.base_paths[protocol]
-        pudl_cat = intake.cat.pudl_cat
+        if protocol == "local":
+            pudl_cat = intake.cat.pudl_cat(cache_method="")
+        else:
+            pudl_cat = intake.cat.pudl_cat
         if partition:
             src = pudl_cat["hourly_emissions_epacems_partitioned"](filters=filters)
         else:
@@ -75,8 +78,8 @@ class TestEpaCemsParquet(object):
         )
         direct_kwargs = [
             dict(protocol="local", partition=True),
-            dict(protocol="gcs", partition=False),
-            dict(protocol="gcs", partition=True),
+            dict(protocol="gs", partition=False),
+            dict(protocol="gs", partition=True),
             # Tries to download the entire 4.7GB file and runs out of memory
             # dict(protocol="https", partition=False),
             # https *must* refer to individual files. Can't list a directory or match patterns.
@@ -97,8 +100,8 @@ class TestEpaCemsParquet(object):
         intake_kwargs = [
             dict(protocol="local", partition=False),
             dict(protocol="local", partition=True),
-            dict(protocol="gcs", partition=False),
-            dict(protocol="gcs", partition=True),
+            dict(protocol="gs", partition=False),
+            dict(protocol="gs", partition=True),
             # Tries to download the entire 4.7GB file and runs out of memory
             # dict(protocol="https", partition=False),
             # Results in a 403 Forbidden error on parquet file parent directory
