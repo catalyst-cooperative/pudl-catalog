@@ -69,8 +69,8 @@ sources are available within the catalog you turn it into a list (yes this is we
 
 ```py
 # Environment variables that tell Intake where to find and cache data
-os.environ["PUDL_INTAKE_CACHE"] = str(Path.home() / ".cache/intake-pudl")
-os.environ["PUDL_INTAKE_PATH"] = "gcs://catalyst.coop/intake/test"
+os.environ["PUDL_INTAKE_CACHE"] = str(Path.home() / ".cache/intake")
+os.environ["PUDL_INTAKE_PATH"] = "gs://intake.catalyst.coop/test"
 
 import intake
 import pandas as pd
@@ -99,8 +99,8 @@ hourly_emissions_epacems:
     engine: pyarrow
     storage_options:
       simplecache:
-        cache_storage: /home/zane/.cache/intake-pudl
-    urlpath: simplecache::gcs://catalyst.coop/intake/test/hourly_emissions_epacems.parquet
+        cache_storage: /home/zane/.cache/intake
+    urlpath: simplecache::gs://intake.catalyst.coop/test/hourly_emissions_epacems.parquet
   description: Hourly pollution emissions and plant operational data reported via
     Continuous Emissions Monitoring Systems (CEMS) as required by 40 CFR Part 75.
     Includes CO2, NOx, and SO2, as well as the heat content of fuel consumed and gross
@@ -108,7 +108,7 @@ hourly_emissions_epacems:
     (smokestack) ID.
   driver: intake_parquet.source.ParquetSource
   metadata:
-    catalog_dir: /home/zane/code/catalyst/pudl-data-catalog/src/pudl_catalog/
+    catalog_dir: /home/zane/code/catalyst/pudl-catalog/src/pudl_catalog/
     license:
       name: CC-BY-4.0
       path: https://creativecommons.org/licenses/by/4.0
@@ -157,7 +157,7 @@ pudl_cat.hourly_emissions_epacems.discover()
   'license': {'name': 'CC-BY-4.0',
    'title': 'Creative Commons Attribution 4.0',
    'path': 'https://creativecommons.org/licenses/by/4.0'},
-  'catalog_dir': '/home/zane/code/catalyst/pudl-data-catalog/src/pudl_catalog/'}}
+  'catalog_dir': '/home/zane/code/catalyst/pudl-catalog/src/pudl_catalog/'}}
 ```
 
 ### Read some data from the catalog
