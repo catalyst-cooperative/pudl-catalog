@@ -53,6 +53,13 @@ repos:
       - flake8-rst-docstrings
       - flake8-use-fstring
 
+- repo: https://github.com/myint/rstcheck
+  rev: v5.0.0
+  hooks:
+  - id: rstcheck
+#   additional_dependencies: [sphinx]
+    args: [--config, tox.ini]
+
 - repo: local
   hooks:
     - id: nb-output-clear

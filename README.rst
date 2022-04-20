@@ -61,7 +61,7 @@ Development is currently being organized under these epics in the main
 PUDL repo:
 
 * `EPA CEMS Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1564>`__
-*  `Prototype SQLite Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1156>`__
+* `Prototype SQLite Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1156>`__
 
 See the `issues in this repository
 <https://github.com/catalyst-cooperative/pudl-catalog/issues>`__ for more

@@ -66,6 +66,7 @@ setup(
             "pre-commit>=2.9<3",
             "pytest>=6.2,<8",
             "pytest-cov>=2.10,<4.0",
+            "rstcheck>=5,<6",
             "tox>=3.20<4",
         ],
     },
