@@ -4,7 +4,7 @@ from pathlib import Path
 
 from setuptools import find_packages, setup
 
-readme_path = Path(__file__).parent / "README.md"
+readme_path = Path(__file__).parent / "README.rst"
 long_description = readme_path.read_text()
 
 setup(
@@ -12,7 +12,7 @@ setup(
     use_scm_version=True,
     description=__doc__,
     long_description=long_description,
-    long_description_content_type="text/markdown",
+    long_description_content_type="text/x-rst",
     author="Catalyst Cooperative",
     author_email="pudl@catalyst.coop",
     maintainer="Zane A. Selvans",
@@ -66,6 +66,7 @@ setup(
             "pre-commit>=2.9<3",
             "pytest>=6.2,<8",
             "pytest-cov>=2.10,<4.0",
+            "rstcheck>=5,<6",
             "tox>=3.20<4",
         ],
     },
