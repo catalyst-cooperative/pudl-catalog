@@ -337,6 +337,42 @@ climate data. The motiviation and benefits of this approach are described in
 this paper: `Pangeo Forge: Crowdsourcing Analysis-Ready, Cloud Optimized Data
 Production <https://doi.org/10.3389/fclim.2021.782909>`__
 
+Licensing
+---------
+
+Our code, data, and other work are permissively licensed for use by anybody, for
+any purpose, so long as you give us credit for the work we've done.
+
+* For software we use `the MIT License <https://opensource.org/licenses/MIT>`__.
+* For data, documentation, and other non-software works we use the
+  `CC-BY-4.0 <https://creativecommons.org/licenses/by/4.0/>`__ license.
+
+Contact Us
+----------
+
+* For general support, questions, or other conversations around the project
+  that might be of interest to others, check out the
+  `GitHub Discussions <https://github.com/catalyst-cooperative/pudl/discussions>`__
+* If you'd like to get occasional updates about our projects
+  `sign up for our email list <https://catalyst.coop/updates/>`__.
+* Want to schedule a time to chat with us one-on-one? Join us for
+  `Office Hours <https://calend.ly/catalyst-cooperative/pudl-office-hours>`__
+* Follow us on Twitter: `@CatalystCoop <https://twitter.com/CatalystCoop>`__
+* More info on our website: https://catalyst.coop
+* For private communication about the project or to hire us to provide customized data
+  extraction and analysis, you can email the maintainers:
+  `pudl@catalyst.coop <mailto:pudl@catalyst.coop>`__
+
+About Catalyst Cooperative
+--------------------------
+
+`Catalyst Cooperative <https://catalyst.coop>`__ is a small group of data
+wranglers and policy wonks organized as a worker-owned cooperative consultancy.
+Our goal is a more just, livable, and sustainable world. We integrate public
+data and perform custom analyses to inform public policy (`Hire us!
+<https://catalyst.coop/hire-catalyst>`__). Our focus is primarily on mitigating
+climate change and improving electric utility regulation in the United States.
+
 Funding
 -------
 
