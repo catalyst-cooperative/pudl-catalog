@@ -35,6 +35,35 @@ repos:
   - id: black
     language_version: python3.10
 
+# Check for PEP8 non-compliance, code complexity, style, errors, etc:
+- repo: https://github.com/PyCQA/flake8
+  rev: 4.0.1
+  hooks:
+  - id: flake8
+    args: [--config, tox.ini]
+    additional_dependencies:
+      - flake8-docstrings
+      - flake8-colors
+      - pydocstyle
+      - flake8-builtins
+      - mccabe
+      - pep8-naming
+      - pycodestyle
+      - pyflakes
+      - flake8-rst-docstrings
+      - flake8-use-fstring
+
+- repo: local
+  hooks:
+    - id: nb-output-clear
+      name: nb-output-clear
+      stages: [commit]
+      language: system
+      verbose: false
+      pass_filenames: false
+      always_run: true
+      entry: find notebooks \( -name \*.ipynb -not -name \*checkpoint.ipynb \) -type f -exec jupyter nbconvert --clear-output {} \;
+
 # Configuration for pre-commit.ci
 ci:
   autofix_commit_msg: |
@@ -45,4 +74,5 @@ ci:
   autoupdate_branch: main
   autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
   autoupdate_schedule: weekly
+  skip: [nb-output-clear]
   submodules: false
