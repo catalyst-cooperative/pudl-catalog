@@ -7,24 +7,25 @@ import intake
 
 import pudl_catalog.helpers  # noqa: F401
 
-KNOWN_DATA_LOCATIONS = [
-    "https://storage.googleapis.com/intake.catalyst.coop/test",
-    "gs://intake.catalyst.coop/test",
-]
+BASE_URLS = {
+    "gs": "gs://intake.catalyst.coop/test",
+    "https": "https://storage.googleapis.com/intake.catalyst.coop/test",
+}
 
 # Ensure that the user has set the relevant environment variables
 if os.getenv("PUDL_INTAKE_PATH") is None:
     msg = (
-        "Environment variable PUDL_INTAKE_PATH not set, `catalystcoop.pudl_catalog`\n"
-        "may not work as expected. Known data locations include:\n"
-        f"{KNOWN_DATA_LOCATIONS}."
+        "Environment variable PUDL_INTAKE_PATH is not set. Without that path \n"
+        "`catalystcoop.pudl_catalog` will not work as expected.\n"
+        f"Known data locations include: {list(BASE_URLS.values())}.\n"
+        f"Defaulting to {BASE_URLS['gs']}"
     )
     warnings.warn(msg)
 
 if os.getenv("PUDL_INTAKE_CACHE") is None:
     msg = (
         "Environment variable PUDL_INTAKE_CACHE not set, `catalystcoop.pudl_catalog`\n"
-        "may not work as expected. Choose a location for local file caching to speed\n"
+        "may not work as expected. Set a location for local file caching to speed\n"
         "repeated data queries."
     )
     warnings.warn(msg)
