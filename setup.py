@@ -44,9 +44,11 @@ setup(
     zip_safe=False,
     python_requires=">=3.8,<3.11",
     install_requires=[
+        "gcsfs>=2022,<2023",
         "intake>=0.6.5",
         "intake_parquet>=0.2.3",
         "intake_sql>=0.3.1",
+        "msgpack>=1,<2",
         "pandas>=1.4,<1.5",
     ],
     extras_require={

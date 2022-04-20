@@ -8,6 +8,7 @@ from pathlib import Path
 import intake
 import pandas as pd
 
+from pudl_catalog import BASE_URLS
 from pudl_catalog.helpers import year_state_filter
 
 logger = logging.getLogger(__name__)
@@ -18,8 +19,8 @@ class TestEpaCemsParquet(object):
     """Test the EPA CEMS Intake Catalog."""
 
     table_name: str = "hourly_emissions_epacems"
-    gs_base: str = "gs://intake.catalyst.coop/test"
-    https_base: str = "https://storage.googleapis.com/intake.catalyst.coop/test"
+    gs_base: str = BASE_URLS["gs"]
+    https_base: str = BASE_URLS["https"]
     local_base: str = str(Path(__file__).parent.parent.parent / "data")
     pudl_catalog_yml: str = "../src/catalog/pudl-catalog.yml"
 
