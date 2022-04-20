@@ -1,13 +1,43 @@
 The PUDL Data Catalog
 =====================
 
-This repository houses a data catalog distributing open energy system
-data liberated by `Catalyst Cooperative <https://catalyst.coop>`__ as
-part of our `Public Utility Data Liberation
-Project <https://github.com/catalyst-cooperative/pudl>`__ (PUDL). It
-uses the `Intake library <https://github.com/intake/intake>`__ developed
-by Anaconda to provide a uniform interface to versioned data releases
-hosted on publicly accessible cloud resources.
+.. readme-intro
+
+.. image:: https://www.repostatus.org/badges/latest/concept.svg
+   :target: https://www.repostatus.org/#concept
+   :alt: Project Status: Concept - Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.
+
+.. image:: https://github.com/catalyst-cooperative/pudl-catalog/workflows/tox-pytest/badge.svg
+   :target: https://github.com/catalyst-cooperative/pudl-catalog/actions?query=workflow%3Atox-pytest
+   :alt: Tox-PyTest Status
+
+.. image:: https://img.shields.io/codecov/c/github/catalyst-cooperative/pudl-catalog
+   :target: https://codecov.io/gh/catalyst-cooperative/pudl-catalog
+   :alt: Codecov Test Coverage
+
+.. image:: https://img.shields.io/pypi/v/catalystcoop.pudl_catalog
+   :target: https://pypi.org/project/catalystcoop.pudl_catalog/
+   :alt: PyPI Latest Version
+
+.. image:: https://img.shields.io/conda/vn/conda-forge/catalystcoop.pudl_catalog
+   :target: https://anaconda.org/conda-forge/catalystcoop.pudl_catalog
+   :alt: conda-forge Version
+
+.. image:: https://img.shields.io/pypi/pyversions/catalystcoop.pudl_catalog
+   :target: https://pypi.org/project/catalystcoop.pudl_catalog
+   :alt: Supported Python Versions
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: Any color you want, so long as it's black.
+
+This repository houses a data catalog distributing open energy system data
+liberated by `Catalyst Cooperative <https://catalyst.coop>`__ as part of our
+`Public Utility Data Liberation Project
+<https://github.com/catalyst-cooperative/pudl>`__ (PUDL). It uses the `Intake
+library <https://github.com/intake/intake>`__ developed by Anaconda to provide a
+uniform interface to versioned data releases hosted on publicly accessible cloud
+resources.
 
 Catalog Contents
 ----------------
@@ -15,16 +45,14 @@ Catalog Contents
 Currently available datasets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
--  Hourly Emissions from the EPA CEMS (Apache Parquet)
+* Hourly Emissions from the EPA CEMS (Apache Parquet)
 
 Future datasets
 ~~~~~~~~~~~~~~~
 
--  Raw FERC Form 1 DB (SQL) – `browse DB
-   online <https://data.catalyst.coop/ferc1>`__
--  PUDL DB (SQL) – `browse DB
-   online <https://data.catalyst.coop/pudl>`__
--  Census Demographic Profile 1 (SQL)
+* Raw FERC Form 1 DB (SQL) – `browse DB online <https://data.catalyst.coop/ferc1>`__
+* PUDL DB (SQL) – `browse DB online <https://data.catalyst.coop/pudl>`__
+* Census Demographic Profile 1 (SQL)
 
 Ongoing Development
 -------------------
@@ -32,44 +60,40 @@ Ongoing Development
 Development is currently being organized under these epics in the main
 PUDL repo:
 
--  `EPA CEMS Intake
-   Catalog <https://github.com/catalyst-cooperative/pudl/issues/1564>`__
--  `Prototype SQLite Intake
-   Catalog <https://github.com/catalyst-cooperative/pudl/issues/1156>`__
+* `EPA CEMS Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1564>`__
+*  `Prototype SQLite Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1156>`__
 
-See the `issues in this
-repository <https://github.com/catalyst-cooperative/pudl-catalog/issues>`__
-for more detailed tasks.
+See the `issues in this repository
+<https://github.com/catalyst-cooperative/pudl-catalog/issues>`__ for more
+detailed tasks.
 
 Planned data distribution system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We’re in the process of implementing automated nightly builds of all of
-our data products for each development branch with new commits in the
-main PUDL repository. This will allow us to do exhaustive integration
-testing and data validation on a daily basis. If all of the tests and
-data validation pass, then a new version of the data products (SQLite
-databases and Parquet files) will be produced, and placed into cloud
-storage.
+We’re in the process of implementing automated nightly builds of all of our data
+products for each development branch with new commits in the main PUDL
+repository. This will allow us to do exhaustive integration testing and data
+validation on a daily basis. If all of the tests and data validation pass, then
+a new version of the data products (SQLite databases and Parquet files) will be
+produced, and placed into cloud storage.
 
-These outputs will be made available via a data catalog on a
-corresponding branch in this ``pudl-catalog`` repository. Ingeneral only
-the catalogs and data resources corresponding to the ``HEAD`` of
-development and feature branches will be available. Releases that are
-tagged on the ``main`` branch will be retained long term.
+These outputs will be made available via a data catalog on a corresponding
+branch in this ``pudl-catalog`` repository. Ingeneral only the catalogs and data
+resources corresponding to the ``HEAD`` of development and feature branches will
+be available. Releases that are tagged on the ``main`` branch will be retained
+long term.
 
-The idea is that for any released version of PUDL, you should also be
-able to install a corresponding data catalog, and know that the software
-and the data are compatible. You can also install just the data catalog
-with minimal dependencies, and not need to worry about the PUDL software
-that produced it at all, if you simply want to access the DBs or Parquet
-files directly.
+The idea is that for any released version of PUDL, you should also be able to
+install a corresponding data catalog, and know that the software and the data
+are compatible. You can also install just the data catalog with minimal
+dependencies, and not need to worry about the PUDL software that produced it at
+all, if you simply want to access the DBs or Parquet files directly.
 
-In development, this arrangement will mean that every morning you should
-have access to a fully processed set of data products that reflect the
-branch of code that you’re working on, rather than the data and code
-getting progressively further out of sync as you do development, until
-you take the time to re-run the full ETL locally yourself.
+In development, this arrangement will mean that every morning you should have
+access to a fully processed set of data products that reflect the branch of code
+that you’re working on, rather than the data and code getting progressively
+further out of sync as you do development, until you take the time to re-run the
+full ETL locally yourself.
 
 Example Usage
 -------------
@@ -79,10 +103,10 @@ See the notebook included in this repository for more details.
 Import Intake Catalogs
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The ``pudl_catalog`` registers as an available data source within Intake
-when it’s installed, so you can grab it from the top level Intake
-catalog. To see what data sources are available within the catalog you
-turn it into a list (yes this is weird).
+The ``pudl_catalog`` registers as an available data source within Intake when
+it’s installed, so you can grab it from the top level Intake catalog. To see
+what data sources are available within the catalog you turn it into a list (yes
+this is weird).
 
 .. code:: py
 
@@ -184,17 +208,16 @@ Read some data from the catalog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To read data from the source you call it with some arguments. Here we’re
-supplying filters (in “disjunctive normal form”) that select only a
-subset of the available years and states. This limits the set of Parquet
-files that need to be scanned to find the requested data (since the
-files are partitioned by ``year`` and ``state``) and also ensures that
-you don’t get back a 100GB dataframe that crashes your laptop. These
-arguments are passed through to
-```dask.dataframe.read_parquet()`` <https://docs.dask.org/en/latest/generated/dask.dataframe.read_parquet.html>`__
-since Dask dataframes are the default container for Parquet data. Given
-those arguments, you convert the source to a Dask dataframe and the use
-``.compute()`` on that dataframe to actually read the data and return a
-pandas dataframe:
+supplying filters (in “disjunctive normal form”) that select only a subset of
+the available years and states. This limits the set of Parquet files that need
+to be scanned to find the requested data (since the files are partitioned by
+``year`` and ``state``) and also ensures that you don’t get back a 100GB
+dataframe that crashes your laptop. These arguments are passed through to
+`dask.dataframe.read_parquet()
+<https://docs.dask.org/en/latest/generated/dask.dataframe.read_parquet.html>`__
+since Dask dataframes are the default container for Parquet data. Given those
+arguments, you convert the source to a Dask dataframe and the use ``.compute()``
+on that dataframe to actually read the data and return a pandas dataframe:
 
 .. code:: py
 
@@ -220,107 +243,79 @@ pandas dataframe:
        "co2_mass_tons",
    ]].head()
 
-+---+-----+---+---------+---+---+----+----+--------+-----+-------+-----+
-|   | pla | u | o       | y | s | f  | u  | op     | g   | hea   | c   |
-|   | nt_ | n | peratin | e | t | ac | ni | eratin | ros | t_con | o2_ |
-|   | id_ | i | g_datet | a | a | il | t_ | g_time | s_l | tent_ | mas |
-|   | eia | t | ime_utc | r | t | it | id | _hours | oad | mmbtu | s_t |
-|   |     | i |         |   | e | y_ | _e |        | _mw |       | ons |
-|   |     | d |         |   |   | id | pa |        |     |       |     |
-+===+=====+===+=========+===+===+====+====+========+=====+=======+=====+
-| 0 | 469 | 4 | 201     | 2 | C | 79 | 2  | 1      | 203 | 2     | 12  |
-|   |     |   | 9-01-01 | 0 | O |    | 98 |        |     | 146.2 | 7.2 |
-|   |     |   | 07:00:0 | 1 |   |    |    |        |     |       |     |
-|   |     |   | 0+00:00 | 9 |   |    |    |        |     |       |     |
-+---+-----+---+---------+---+---+----+----+--------+-----+-------+-----+
-| 1 | 469 | 4 | 201     | 2 | C | 79 | 2  | 1      | 203 | 2     | 12  |
-|   |     |   | 9-01-01 | 0 | O |    | 98 |        |     | 152.7 | 7.6 |
-|   |     |   | 08:00:0 | 1 |   |    |    |        |     |       |     |
-|   |     |   | 0+00:00 | 9 |   |    |    |        |     |       |     |
-+---+-----+---+---------+---+---+----+----+--------+-----+-------+-----+
-| 2 | 469 | 4 | 201     | 2 | C | 79 | 2  | 1      | 204 | 2     | 127 |
-|   |     |   | 9-01-01 | 0 | O |    | 98 |        |     | 142.2 |     |
-|   |     |   | 09:00:0 | 1 |   |    |    |        |     |       |     |
-|   |     |   | 0+00:00 | 9 |   |    |    |        |     |       |     |
-+---+-----+---+---------+---+---+----+----+--------+-----+-------+-----+
-| 3 | 469 | 4 | 201     | 2 | C | 79 | 2  | 1      | 204 | 2     | 12  |
-|   |     |   | 9-01-01 | 0 | O |    | 98 |        |     | 129.2 | 6.2 |
-|   |     |   | 10:00:0 | 1 |   |    |    |        |     |       |     |
-|   |     |   | 0+00:00 | 9 |   |    |    |        |     |       |     |
-+---+-----+---+---------+---+---+----+----+--------+-----+-------+-----+
-| 4 | 469 | 4 | 201     | 2 | C | 79 | 2  | 1      | 204 | 2     | 12  |
-|   |     |   | 9-01-01 | 0 | O |    | 98 |        |     | 160.6 | 8.1 |
-|   |     |   | 11:00:0 | 1 |   |    |    |        |     |       |     |
-|   |     |   | 0+00:00 | 9 |   |    |    |        |     |       |     |
-+---+-----+---+---------+---+---+----+----+--------+-----+-------+-----+
+====  ==============  ========  =========================  ======  =======  =============  =============  ======================  ===============  ====================  ===============
+  ..    plant_id_eia    unitid  operating_datetime_utc       year  state      facility_id    unit_id_epa    operating_time_hours    gross_load_mw    heat_content_mmbtu    co2_mass_tons
+====  ==============  ========  =========================  ======  =======  =============  =============  ======================  ===============  ====================  ===============
+   0             469         4  2019-01-01 07:00:00+00:00    2019  CO                  79            298                       1              203                2146.2            127.2
+   1             469         4  2019-01-01 08:00:00+00:00    2019  CO                  79            298                       1              203                2152.7            127.6
+   2             469         4  2019-01-01 09:00:00+00:00    2019  CO                  79            298                       1              204                2142.2            127
+   3             469         4  2019-01-01 10:00:00+00:00    2019  CO                  79            298                       1              204                2129.2            126.2
+   4             469         4  2019-01-01 11:00:00+00:00    2019  CO                  79            298                       1              204                2160.6            128.1
+====  ==============  ========  =========================  ======  =======  =============  =============  ======================  ===============  ====================  ===============
 
 Benefits of Intake Catalogs
 ---------------------------
 
-The Intake docs list a bunch of `potential use
-cases <https://intake.readthedocs.io/en/latest/use_cases.html>`__. Here
-are some features that we’re excited to take advantage of:
+The Intake docs list a bunch of `potential use cases
+<https://intake.readthedocs.io/en/latest/use_cases.html>`__. Here are some
+features that we’re excited to take advantage of:
 
 Rich Metadata
 ~~~~~~~~~~~~~
 
-The Intake catalog provides a human and machine readable container for
-metadata describing the underlying data, so that you can understand what
-the data contains before downloading all of it. We intend to automate
-the production of the catalog using PUDL’s metadata models so it’s
-always up to date.
+The Intake catalog provides a human and machine readable container for metadata
+describing the underlying data, so that you can understand what the data
+contains before downloading all of it. We intend to automate the production of
+the catalog using PUDL’s metadata models so it’s always up to date.
 
 Local data caching
 ~~~~~~~~~~~~~~~~~~
 
-Rather than downloading the same data repeatedly, in many cases it’s
-possible to transparently cache the data locally for faster access
-later. This is especially useful when you’ve got plenty of disk space
-and a slower network connection, or typically only work with a small
-subset of a much larger dataset.
+Rather than downloading the same data repeatedly, in many cases it’s possible to
+transparently cache the data locally for faster access later. This is especially
+useful when you’ve got plenty of disk space and a slower network connection, or
+typically only work with a small subset of a much larger dataset.
 
 Manage data like software
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Intake data catalogs can be packaged and versioned just like Python
-software packages, allowing us to manage depedencies between different
-versions of software and the data it operates on to ensure they are
-compatible. It also allows you to have multiple versions of the same
-data installed locally, and to switch between them seamlessly when you
-change software environments. This is especially useful when doing a mix
-of development and analysis, where we need to work with the newest data
-(which may not yet be fully integrated) as well as previously released
-data and software that’s more stable.
+Intake data catalogs can be packaged and versioned just like Python software
+packages, allowing us to manage depedencies between different versions of
+software and the data it operates on to ensure they are compatible. It also
+allows you to have multiple versions of the same data installed locally, and to
+switch between them seamlessly when you change software environments. This is
+especially useful when doing a mix of development and analysis, where we need to
+work with the newest data (which may not yet be fully integrated) as well as
+previously released data and software that’s more stable.
 
 A Uniform API
 ~~~~~~~~~~~~~
 
 All the data sources of a given type (parquet, SQL) would have the same
-interface, reducing the number of things a user needs to remember to
-access the data.
+interface, reducing the number of things a user needs to remember to access the
+data.
 
 Decoupling Data Location and Format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Having users access the data through the catalog rather than directly
-means that the underlying storage location and file formats can change
-over time as needed without requiring the user to change how they are
-accessing the data.
+Having users access the data through the catalog rather than directly means that
+the underlying storage location and file formats can change over time as needed
+without requiring the user to change how they are accessing the data.
 
 Additional Intake Resources
 ---------------------------
 
--  `Intake Repo <https://github.com/intake/intake>`__
--  `Intake Docs <https://intake.readthedocs.io/en/latest/start.html>`__
--  `Intake Examples <https://github.com/intake/intake-examples>`__
--  `Intake talk from AnacondaCon
+*  `Intake Repo <https://github.com/intake/intake>`__
+*  `Intake Docs <https://intake.readthedocs.io/en/latest/start.html>`__
+*  `Intake Examples <https://github.com/intake/intake-examples>`__
+*  `Intake talk from AnacondaCon
    2019 <https://www.youtube.com/watch?v=oyZJrROQzUs>`__
--  `Intake Parquet Repo <https://github.com/intake/intake-parquet>`__
--  `Intake Parquet
+*  `Intake Parquet Repo <https://github.com/intake/intake-parquet>`__
+*  `Intake Parquet
    Docs <https://intake-parquet.readthedocs.io/en/latest/quickstart.html>`__
--  `Intake SQL Repo <https://github.com/intake/intake-sql>`__
--  `Intake SQL Docs <https://intake-sql.readthedocs.io/en/latest/>`__
--  `PUDL intake
+*  `Intake SQL Repo <https://github.com/intake/intake-sql>`__
+*  `Intake SQL Docs <https://intake-sql.readthedocs.io/en/latest/>`__
+*  `PUDL intake
    issues <https://github.com/catalyst-cooperative/pudl/issues?q=is%3Aissue+is%3Aopen+label%3Aintake>`__
 
 Other Related Energy & Climate Data Catalogs
@@ -329,23 +324,22 @@ Other Related Energy & Climate Data Catalogs
 `CarbonPlan <https://github.com/carbonplan/data>`__
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CarbonPlan is a non-profit research organization focused on climate and
-energy system data analysis. They manage their data inputs and products
-using Intake, and the catalogs are public.
+CarbonPlan is a non-profit research organization focused on climate and energy
+system data analysis. They manage their data inputs and products using Intake,
+and the catalogs are public.
 
 `Pangeo Forge <https://pangeo-forge.readthedocs.io/en/latest/>`__
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pangeo Forge is a collaborate project providing analysis read cloud
-optimzed (ARCO) scientific datasets, primarily related to the earth
-sciences, including climate data. The motiviation and benefits of this
-approach are described in this paper: `Pangeo Forge: Crowdsourcing
-Analysis-Ready, Cloud Optimized Data
+Pangeo Forge is a collaborate project providing analysis read cloud optimzed
+(ARCO) scientific datasets, primarily related to the earth sciences, including
+climate data. The motiviation and benefits of this approach are described in
+this paper: `Pangeo Forge: Crowdsourcing Analysis-Ready, Cloud Optimized Data
 Production <https://doi.org/10.3389/fclim.2021.782909>`__
 
 Funding
 -------
 
-This work is supported by a generous grant from the `Alfred P. Sloan
-Foundation <https://sloan.org/>`__ and their `Energy & Environment
-Program <https://sloan.org/programs/research/energy-and-environment>`__
+This work is supported by a generous grant from the `Alfred P. Sloan Foundation
+<https://sloan.org/>`__ and their `Energy & Environment Program
+<https://sloan.org/programs/research/energy-and-environment>`__
