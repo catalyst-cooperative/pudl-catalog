@@ -3,27 +3,27 @@ The PUDL Data Catalog
 
 .. readme-intro
 
-.. image:: https://www.repostatus.org/badges/latest/concept.svg
-   :target: https://www.repostatus.org/#concept
-   :alt: Project Status: Concept - Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.
-
 .. image:: https://github.com/catalyst-cooperative/pudl-catalog/workflows/tox-pytest/badge.svg
    :target: https://github.com/catalyst-cooperative/pudl-catalog/actions?query=workflow%3Atox-pytest
    :alt: Tox-PyTest Status
 
-.. image:: https://img.shields.io/codecov/c/github/catalyst-cooperative/pudl-catalog
+.. image:: https://img.shields.io/codecov/c/github/catalyst-cooperative/pudl-catalog?style=flat&logo=codecov
    :target: https://codecov.io/gh/catalyst-cooperative/pudl-catalog
    :alt: Codecov Test Coverage
 
-.. image:: https://img.shields.io/pypi/v/catalystcoop.pudl_catalog
+.. image:: https://img.shields.io/readthedocs/catalystcoop-pudl-catalog?style=flat&logo=readthedocs
+   :target: https://catalystcoop-pudl-catalog.readthedocs.io/en/latest/
+   :alt: Read the Docs Build Status
+
+.. image:: https://img.shields.io/pypi/v/catalystcoop.pudl_catalog?style=flat&logo=python
    :target: https://pypi.org/project/catalystcoop.pudl_catalog/
    :alt: PyPI Latest Version
 
-.. image:: https://img.shields.io/conda/vn/conda-forge/catalystcoop.pudl_catalog
+.. image:: https://img.shields.io/conda/vn/conda-forge/catalystcoop.pudl_catalog?style=flat&logo=condaforge
    :target: https://anaconda.org/conda-forge/catalystcoop.pudl_catalog
    :alt: conda-forge Version
 
-.. image:: https://img.shields.io/pypi/pyversions/catalystcoop.pudl_catalog
+.. image:: https://img.shields.io/pypi/pyversions/catalystcoop.pudl_catalog?style=flat&logo=python
    :target: https://pypi.org/project/catalystcoop.pudl_catalog
    :alt: Supported Python Versions
 
@@ -121,7 +121,7 @@ this is weird).
    pudl_cat = intake.cat.pudl_cat
    list(pudl_cat)
 
-.. code:: txt
+.. code:: text
 
    ['hourly_emissions_epacems', 'hourly_emissions_epacems_partitioned']
 
@@ -135,7 +135,7 @@ but with all the Jinja template fields interpolated and filled in:
 
    pudl_cat.hourly_emissions_epacems
 
-.. code:: txt
+.. code:: text
 
    hourly_emissions_epacems:
      args:
@@ -172,7 +172,7 @@ types:
 
    pudl_cat.hourly_emissions_epacems.discover()
 
-.. code:: txt
+.. code:: text
 
    {'dtype': {'plant_id_eia': 'int32',
      'unitid': 'object',
@@ -243,15 +243,14 @@ on that dataframe to actually read the data and return a pandas dataframe:
        "co2_mass_tons",
    ]].head()
 
-====  ==============  ========  =========================  ======  =======  =============  =============  ======================  ===============  ====================  ===============
-  ..    plant_id_eia    unitid  operating_datetime_utc       year  state      facility_id    unit_id_epa    operating_time_hours    gross_load_mw    heat_content_mmbtu    co2_mass_tons
-====  ==============  ========  =========================  ======  =======  =============  =============  ======================  ===============  ====================  ===============
-   0             469         4  2019-01-01 07:00:00+00:00    2019  CO                  79            298                       1              203                2146.2            127.2
-   1             469         4  2019-01-01 08:00:00+00:00    2019  CO                  79            298                       1              203                2152.7            127.6
-   2             469         4  2019-01-01 09:00:00+00:00    2019  CO                  79            298                       1              204                2142.2            127
-   3             469         4  2019-01-01 10:00:00+00:00    2019  CO                  79            298                       1              204                2129.2            126.2
-   4             469         4  2019-01-01 11:00:00+00:00    2019  CO                  79            298                       1              204                2160.6            128.1
-====  ==============  ========  =========================  ======  =======  =============  =============  ======================  ===============  ====================  ===============
+.. csv-table::
+   :header: plant_id_eia, unitid, operating_datetime_utc, year, state, facility_id, unit_id_epa, operating_time_hours, gross_load_mw, heat_content_mmbtu, co2_mass_tons
+
+   469,4,2019-01-01 07:00:00+00:00,2019,CO,79,298,1.0,203.0,2146.2,127.2
+   469,4,2019-01-01 08:00:00+00:00,2019,CO,79,298,1.0,203.0,2152.7,127.6
+   469,4,2019-01-01 09:00:00+00:00,2019,CO,79,298,1.0,204.0,2142.2,127.0
+   469,4,2019-01-01 10:00:00+00:00,2019,CO,79,298,1.0,204.0,2129.2,126.2
+   469,4,2019-01-01 11:00:00+00:00,2019,CO,79,298,1.0,204.0,2160.6,128.1
 
 Benefits of Intake Catalogs
 ---------------------------

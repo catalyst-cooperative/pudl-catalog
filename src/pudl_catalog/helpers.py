@@ -36,8 +36,10 @@ def year_state_filter(
         read_parquet() method of pandas and dask dataframes.
 
     """
-    year_filters = [("year", "=", year) for year in years]
-    state_filters = [("state", "=", state.upper()) for state in states]
+    if years is not None:
+        year_filters = [("year", "=", year) for year in years]
+    if states is not None:
+        state_filters = [("state", "=", state.upper()) for state in states]
 
     if states and not years:
         filters = [

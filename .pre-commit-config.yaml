@@ -53,6 +53,13 @@ repos:
       - flake8-rst-docstrings
       - flake8-use-fstring
 
+# Check for errors in restructuredtext (.rst) files under the doc hierarchy
+- repo: https://github.com/PyCQA/doc8
+  rev: 0.11.1
+  hooks:
+  - id: doc8
+    args: [--config, tox.ini]
+
 - repo: https://github.com/myint/rstcheck
   rev: v5.0.0
   hooks:
@@ -70,6 +77,14 @@ repos:
       pass_filenames: false
       always_run: true
       entry: find notebooks \( -name \*.ipynb -not -name \*checkpoint.ipynb \) -type f -exec jupyter nbconvert --clear-output {} \;
+    - id: unit-tests
+      name: unit-tests
+      stages: [commit]
+      language: system
+      verbose: false
+      pass_filenames: false
+      always_run: true
+      entry: pytest --doctest-modules src/pudl_catalog tests/unit
 
 # Configuration for pre-commit.ci
 ci:
@@ -81,5 +96,5 @@ ci:
   autoupdate_branch: main
   autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
   autoupdate_schedule: weekly
-  skip: [nb-output-clear]
+  skip: [nb-output-clear, unit-tests]
   submodules: false
