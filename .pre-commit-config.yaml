@@ -53,6 +53,13 @@ repos:
       - flake8-rst-docstrings
       - flake8-use-fstring
 
+# Check for errors in restructuredtext (.rst) files under the doc hierarchy
+- repo: https://github.com/PyCQA/doc8
+  rev: 0.11.1
+  hooks:
+  - id: doc8
+    args: [--config, tox.ini]
+
 - repo: https://github.com/myint/rstcheck
   rev: v5.0.0
   hooks:
