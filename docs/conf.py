@@ -73,6 +73,7 @@ intersphinx_mapping = {
     "intake_parquet": ("https://intake-parquet.readthedocs.io/en/latest/", None),
     "intake_sql": ("https://intake-sql.readthedocs.io/en/latest/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable", None),
+    "pyarrow": ("https://pyarrow.readthedocs.io/en/latest/", None),
     "pytest": ("https://docs.pytest.org/en/latest/", None),
     "python": ("https://docs.python.org/3", None),
     "setuptools": ("https://setuptools.pypa.io/en/latest/", None),
