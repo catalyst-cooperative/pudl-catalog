@@ -94,12 +94,12 @@ def test_intake_catalog(
         f"intake_catalog, {protocol=}, {partition=}, {TEST_YEARS=}, {TEST_STATES=}:"
     )
     os.environ["PUDL_INTAKE_PATH"] = BASE_URLS[protocol]
-    pudl_cat = intake.cat.pudl_cat(cache_method="")
+    pudl_cat = intake.cat.pudl_cat
     src = "hourly_emissions_epacems"
     if partition:
         src += "_partitioned"
     start_time = time.time()
-    df = pudl_cat[src](filters=TEST_FILTERS).to_dask().compute()
+    df = pudl_cat[src](filters=TEST_FILTERS, cache_method="").to_dask().compute()
     elapsed_time = time.time() - start_time
     logger.info(f"    elapsed time: {elapsed_time:.2f}s")
     assert_frame_equal(df, expected_df)

@@ -3,27 +3,23 @@ The PUDL Data Catalog
 
 .. readme-intro
 
-.. image:: https://www.repostatus.org/badges/latest/concept.svg
-   :target: https://www.repostatus.org/#concept
-   :alt: Project Status: Concept - Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.
-
 .. image:: https://github.com/catalyst-cooperative/pudl-catalog/workflows/tox-pytest/badge.svg
    :target: https://github.com/catalyst-cooperative/pudl-catalog/actions?query=workflow%3Atox-pytest
    :alt: Tox-PyTest Status
 
-.. image:: https://img.shields.io/codecov/c/github/catalyst-cooperative/pudl-catalog
+.. image:: https://img.shields.io/codecov/c/github/catalyst-cooperative/pudl-catalog?style=flat&logo=codecov
    :target: https://codecov.io/gh/catalyst-cooperative/pudl-catalog
    :alt: Codecov Test Coverage
 
-.. image:: https://img.shields.io/pypi/v/catalystcoop.pudl_catalog
+.. image:: https://img.shields.io/pypi/v/catalystcoop.pudl_catalog?style=flat&logo=pypi
    :target: https://pypi.org/project/catalystcoop.pudl_catalog/
    :alt: PyPI Latest Version
 
-.. image:: https://img.shields.io/conda/vn/conda-forge/catalystcoop.pudl_catalog
+.. image:: https://img.shields.io/conda/vn/conda-forge/catalystcoop.pudl_catalog?style=flat&logo=condaforge
    :target: https://anaconda.org/conda-forge/catalystcoop.pudl_catalog
    :alt: conda-forge Version
 
-.. image:: https://img.shields.io/pypi/pyversions/catalystcoop.pudl_catalog
+.. image:: https://img.shields.io/pypi/pyversions/catalystcoop.pudl_catalog?style=flat&logo=python
    :target: https://pypi.org/project/catalystcoop.pudl_catalog
    :alt: Supported Python Versions
 
