@@ -23,6 +23,7 @@ if os.getenv("PUDL_INTAKE_PATH") is None:
         "Environment variable PUDL_INTAKE_PATH is not set. "
         f"Defaulting to {BASE_URLS['gs']}"
     )
+    os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["gs"]
 
 if os.getenv("PUDL_INTAKE_CACHE") is None:
     logger.info(

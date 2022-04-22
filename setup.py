@@ -20,6 +20,7 @@ setup(
     url="https://github.com/catalyst-cooperative/pudl-catalog",
     project_urls={
         "Source": "https://github.com/catalyst-cooperative/pudl-catalog",
+        "Documentation": "https://catalystcoop-pudl-catalog.readthedocs.io",
         "Issue Tracker": "https://github.com/catalyst-cooperative/pudl-catalog/issues",
     },
     classifiers=[
