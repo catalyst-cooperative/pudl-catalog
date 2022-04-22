@@ -12,9 +12,9 @@ logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
 BASE_URLS = {
-    "gs": "gs://intake.catalyst.coop/test",
+    "gs": "gs://intake.catalyst.coop/v0.1.0",
     # HTTPS access doesn't really work well, so we're hiding it from users for now.
-    "https": "https://storage.googleapis.com/intake.catalyst.coop/test",
+    "https": "https://storage.googleapis.com/intake.catalyst.coop/v0.1.0",
 }
 
 # Ensure that the user has set the relevant environment variables
@@ -23,6 +23,7 @@ if os.getenv("PUDL_INTAKE_PATH") is None:
         "Environment variable PUDL_INTAKE_PATH is not set. "
         f"Defaulting to {BASE_URLS['gs']}"
     )
+    os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["gs"]
 
 if os.getenv("PUDL_INTAKE_CACHE") is None:
     logger.info(

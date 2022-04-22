@@ -110,10 +110,6 @@ this is weird).
 
 .. code:: py
 
-   # Environment variables that tell Intake where to find and cache data
-   os.environ["PUDL_INTAKE_CACHE"] = str(Path.home() / ".cache/intake")
-   os.environ["PUDL_INTAKE_PATH"] = "gs://intake.catalyst.coop/test"
-
    import intake
    import pandas as pd
    from pudl_catalog.helpers import year_state_filter
@@ -143,7 +139,7 @@ but with all the Jinja template fields interpolated and filled in:
        storage_options:
          simplecache:
            cache_storage: /home/zane/.cache/intake
-       urlpath: simplecache::gs://intake.catalyst.coop/test/hourly_emissions_epacems.parquet
+       urlpath: simplecache::gs://intake.catalyst.coop/dev/hourly_emissions_epacems.parquet
      description: Hourly pollution emissions and plant operational data reported via
        Continuous Emissions Monitoring Systems (CEMS) as required by 40 CFR Part 75.
        Includes CO2, NOx, and SO2, as well as the heat content of fuel consumed and gross
