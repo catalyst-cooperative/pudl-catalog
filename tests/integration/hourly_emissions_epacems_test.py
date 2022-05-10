@@ -99,7 +99,16 @@ def test_intake_catalog(
     if partition:
         src += "_partitioned"
     start_time = time.time()
-    df = pudl_cat[src](filters=TEST_FILTERS, cache_method="").to_dask().compute()
+    df = (
+        pudl_cat[src](
+            filters=TEST_FILTERS,
+            cache_method="",
+            index=False,
+            split_row_groups=True,
+        )
+        .to_dask()
+        .compute()
+    )
     elapsed_time = time.time() - start_time
     logger.info(f"    elapsed time: {elapsed_time:.2f}s")
-    assert_frame_equal(df, expected_df)
+    assert_frame_equal(df, expected_df, check_categorical=False)

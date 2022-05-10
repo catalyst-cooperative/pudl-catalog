@@ -64,7 +64,7 @@ repos:
   rev: v5.0.0
   hooks:
   - id: rstcheck
-#   additional_dependencies: [sphinx]
+    additional_dependencies: [sphinx]
     args: [--config, tox.ini]
 
 - repo: local

@@ -222,8 +222,13 @@ on that dataframe to actually read the data and return a pandas dataframe:
        states=["ID", "CO", "TX"],
    )
    epacems_df = (
-       pudl_cat.hourly_emissions_epacems(filters=filters)
-       .to_dask().compute()
+       pudl_cat.hourly_emissions_epacems(
+           filters=filters
+           index=False,
+           split_row_groups=True,
+       )
+       .to_dask()
+       .compute()
    )
    epacems_df[[
        "plant_id_eia",
