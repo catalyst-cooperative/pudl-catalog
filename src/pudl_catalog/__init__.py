@@ -30,6 +30,7 @@ if os.getenv("PUDL_INTAKE_CACHE") is None:
         "Environment variable PUDL_INTAKE_CACHE is not set. "
         f"Defaulting to {os.getenv('HOME')}/.intake/cache"
     )
+    os.environ["PUDL_INTAKE_CACHE"] = str(Path.home() / ".intake/cache")
 
 # The catalog is a YAML file in the same directory as this init file
 _pudl_catalog_path = Path(__file__).parent.resolve() / "pudl_catalog.yaml"
