@@ -41,6 +41,8 @@ sources:
       urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet'
       storage_options:
         requester_pays: true
+        gs:
+          requester_pays: true
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
@@ -65,6 +67,8 @@ sources:
       urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet'
       storage_options:
         requester_pays: true
+        gs:
+          requester_pays: true
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
