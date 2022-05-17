@@ -20,7 +20,6 @@ jobs:
       uses: 'google-github-actions/auth@v0'
       with:
         credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-        export_environment_variables: true
 
     - name: Set up conda environment for testing
       uses: conda-incubator/setup-miniconda@v2.1.1
