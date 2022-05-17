@@ -38,6 +38,8 @@ sources:
         path: "https://creativecommons.org/licenses/by/4.0"
     args: # These arguments are for dask.dataframe.read_parquet()
       engine: 'pyarrow'
+      split_row_groups: true
+      index: false
       urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet'
       storage_options:
         requester_pays: true
@@ -64,6 +66,8 @@ sources:
         path: "https://creativecommons.org/licenses/by/4.0"
     args: # These arguments are for dask.dataframe.read_parquet()
       engine: 'pyarrow'
+      split_row_groups: true
+      index: false
       urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet'
       storage_options:
         requester_pays: true

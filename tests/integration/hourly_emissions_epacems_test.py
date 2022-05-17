@@ -111,8 +111,6 @@ def test_intake_catalog(
         pudl_cat[src](
             filters=TEST_FILTERS,
             cache_method="",
-            index=False,
-            split_row_groups=True,
         )
         .to_dask()
         .compute()
