@@ -40,7 +40,7 @@ sources:
       engine: 'pyarrow'
       urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet'
       storage_options:
-        token: 'anon'  # Explicitly use anonymous access.
+        requester_pays: true
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
@@ -64,7 +64,7 @@ sources:
       engine: 'pyarrow'
       urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet'
       storage_options:
-        token: 'anon'  # Explicitly use anonymous access.
+        requester_pays: true
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
