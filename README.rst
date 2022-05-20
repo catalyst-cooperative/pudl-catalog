@@ -50,9 +50,9 @@ Currently available datasets
 Future datasets
 ~~~~~~~~~~~~~~~
 
-* Raw FERC Form 1 DB (SQL) – `browse DB online <https://data.catalyst.coop/ferc1>`__
-* PUDL DB (SQL) – `browse DB online <https://data.catalyst.coop/pudl>`__
-* Census Demographic Profile 1 (SQL)
+* Raw FERC Form 1 DB (SQLite) -- `browse DB online <https://data.catalyst.coop/ferc1>`__
+* PUDL DB (SQLite) -- `browse DB online <https://data.catalyst.coop/pudl>`__
+* Census Demographic Profile 1 (SQLite)
 
 Ongoing Development
 -------------------
@@ -60,45 +60,79 @@ Ongoing Development
 Development is currently being organized under these epics in the main
 PUDL repo:
 
+* `Intake SQLite Driver <https://github.com/catalyst-cooperative/pudl/issues/1156>`__
 * `EPA CEMS Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1564>`__
-* `Prototype SQLite Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1156>`__
+* `PUDL Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1179>`__
 
-See the `issues in this repository
+See the `issues in the pudl-catalog repository
 <https://github.com/catalyst-cooperative/pudl-catalog/issues>`__ for more
 detailed tasks.
 
-Planned data distribution system
+Usage
+-----
+
+Public data and "requester pays"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We’re in the process of implementing automated nightly builds of all of our data
-products for each development branch with new commits in the main PUDL
-repository. This will allow us to do exhaustive integration testing and data
-validation on a daily basis. If all of the tests and data validation pass, then
-a new version of the data products (SQLite databases and Parquet files) will be
-produced, and placed into cloud storage.
+The data we're publishing in the PUDL Catalog is publicly accessible and distributed
+under the permissive `CC-BY-4.0 <https://creativecommons.org/licenses/by/4.0>`__
+license. Catalyst covers the cost of storing the data in Google cloud storage buckets.
+However, there are also fees incurred when data leaves the Google cloud infrastructure.
+Depending where you're downloading from, it costs $0.10-0.20 (USD) per GB.
 
-These outputs will be made available via a data catalog on a corresponding
-branch in this ``pudl-catalog`` repository. Ingeneral only the catalogs and data
-resources corresponding to the ``HEAD`` of development and feature branches will
-be available. Releases that are tagged on the ``main`` branch will be retained
-long term.
+In order to be able to share large amounts of public data without being exposed to large
+unexpected bills from Google due to someone maliciously or accidentally downloading a
+large volume of data programmatically, we've set the cloud storage to use `requester
+pays <https://cloud.google.com/storage/docs/requester-pays>`__. This means the person
+downloading the data is responsible for those (modest) costs instead. Downloading all of
+the EPA CEMS, FERC 1, PUDL, and US Census data we're publishing from North America will
+cost around $0.75, and it will be cached locally so that it's not downloaded again until
+a new version is released.
 
-The idea is that for any released version of PUDL, you should also be able to
-install a corresponding data catalog, and know that the software and the data
-are compatible. You can also install just the data catalog with minimal
-dependencies, and not need to worry about the PUDL software that produced it at
-all, if you simply want to access the DBs or Parquet files directly.
+To set up a GCP billing project and use it for authentication when accessing the
+catalog:
 
-In development, this arrangement will mean that every morning you should have
-access to a fully processed set of data products that reflect the branch of code
-that you’re working on, rather than the data and code getting progressively
-further out of sync as you do development, until you take the time to re-run the
-full ETL locally yourself.
+* `Create a project on GCP <https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project>`__;
+  if this is the first time using GCP, a prompt should appear asking you to choose which
+  Google account to use for your GCP-related activities. (You should also receive $300
+  in initial cloud credits.
+* `Create a Cloud Billing account <https://cloud.google.com/billing/docs/how-to/manage-billing-account#create_a_new_billing_account>`__
+  associated with the project and `enable billing for the project
+  <https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project>`__
+  through this account.
+* `Using Google Cloud IAM <https://cloud.google.com/iam/docs/granting-changing-revoking-access#granting-console>`__,
+  add the **Service Usage Consumer** role to your account, which enables it to make
+  billed requests on the behalf of the project.
+* Install the `gcloud utilities <https://cloud.google.com/sdk/docs/install>`__ on your
+  computer. This can be done using ``conda`` (or ``mamba``):
 
-Example Usage
--------------
+.. code:: bash
 
-See the notebook included in this repository for more details.
+  conda install -c conda-forge google-cloud-sdk
+
+* Initialize the ``gcloud`` command line interface, logging into the account used to
+  create the aforementioned project and selecting it as the default project; this will
+  allow the project to be used for requester pays access through the command line:
+
+.. code:: bash
+
+  gcloud auth login
+  gcloud init
+
+* Finally, use ``gcloud`` to establish application default credentials; this will allow
+  the project to be used for requester pays access through applications:
+
+.. code:: bash
+
+  gcloud auth application-default login
+
+* To test whether your GCP account is set up correctly and authenticated you can run the
+  following command to list the contents of the cloud storage bucket containing the
+  intake catalog data:
+
+.. code:: bash
+
+   gsutil ls gs://intake.catalyst.coop
 
 Import Intake Catalogs
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -222,11 +256,7 @@ on that dataframe to actually read the data and return a pandas dataframe:
        states=["ID", "CO", "TX"],
    )
    epacems_df = (
-       pudl_cat.hourly_emissions_epacems(
-           filters=filters
-           index=False,
-           split_row_groups=True,
-       )
+       pudl_cat.hourly_emissions_epacems(filters=filters)
        .to_dask()
        .compute()
    )
@@ -252,6 +282,37 @@ on that dataframe to actually read the data and return a pandas dataframe:
    469,4,2019-01-01 09:00:00+00:00,2019,CO,79,298,1.0,204.0,2142.2,127.0
    469,4,2019-01-01 10:00:00+00:00,2019,CO,79,298,1.0,204.0,2129.2,126.2
    469,4,2019-01-01 11:00:00+00:00,2019,CO,79,298,1.0,204.0,2160.6,128.1
+
+See the Jupyter notebook included in this repository for more details.
+
+
+Planned data distribution system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We’re in the process of implementing automated nightly builds of all of our data
+products for each development branch with new commits in the main PUDL
+repository. This will allow us to do exhaustive integration testing and data
+validation on a daily basis. If all of the tests and data validation pass, then
+a new version of the data products (SQLite databases and Parquet files) will be
+produced, and placed into cloud storage.
+
+These outputs will be made available via a data catalog on a corresponding
+branch in this ``pudl-catalog`` repository. Ingeneral only the catalogs and data
+resources corresponding to the ``HEAD`` of development and feature branches will
+be available. Releases that are tagged on the ``main`` branch will be retained
+long term.
+
+The idea is that for any released version of PUDL, you should also be able to
+install a corresponding data catalog, and know that the software and the data
+are compatible. You can also install just the data catalog with minimal
+dependencies, and not need to worry about the PUDL software that produced it at
+all, if you simply want to access the DBs or Parquet files directly.
+
+In development, this arrangement will mean that every morning you should have
+access to a fully processed set of data products that reflect the branch of code
+that you’re working on, rather than the data and code getting progressively
+further out of sync as you do development, until you take the time to re-run the
+full ETL locally yourself.
 
 Benefits of Intake Catalogs
 ---------------------------
