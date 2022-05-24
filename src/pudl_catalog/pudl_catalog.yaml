@@ -38,9 +38,13 @@ sources:
         path: "https://creativecommons.org/licenses/by/4.0"
     args: # These arguments are for dask.dataframe.read_parquet()
       engine: 'pyarrow'
+      split_row_groups: true
+      index: false
       urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet'
       storage_options:
-        token: 'anon'  # Explicitly use anonymous access.
+        requester_pays: true
+        gs:
+          requester_pays: true
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
@@ -62,9 +66,13 @@ sources:
         path: "https://creativecommons.org/licenses/by/4.0"
     args: # These arguments are for dask.dataframe.read_parquet()
       engine: 'pyarrow'
+      split_row_groups: true
+      index: false
       urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet'
       storage_options:
-        token: 'anon'  # Explicitly use anonymous access.
+        requester_pays: true
+        gs:
+          requester_pays: true
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
