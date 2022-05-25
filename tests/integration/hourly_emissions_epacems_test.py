@@ -48,7 +48,11 @@ def expected_df() -> pd.DataFrame:
         partition=False,
         table_name="hourly_emissions_epacems",
     )
-    return pd.read_parquet(epacems_url, filters=TEST_FILTERS)
+    return pd.read_parquet(
+        epacems_url,
+        filters=TEST_FILTERS,
+        storage_options={"requester_pays": True},
+    )
 
 
 @pytest.mark.parametrize(
@@ -71,7 +75,11 @@ def test_read_parquet(
         protocol=protocol, partition=partition, table_name="hourly_emissions_epacems"
     )
     start_time = time.time()
-    df = pd.read_parquet(epacems_url, filters=TEST_FILTERS)
+    df = pd.read_parquet(
+        epacems_url,
+        filters=TEST_FILTERS,
+        storage_options={"requester_pays": True},
+    )
     elapsed_time = time.time() - start_time
     logger.info(f"    elapsed time: {elapsed_time:.2f}s")
     assert_frame_equal(df, expected_df)
@@ -103,8 +111,6 @@ def test_intake_catalog(
         pudl_cat[src](
             filters=TEST_FILTERS,
             cache_method="",
-            index=False,
-            split_row_groups=True,
         )
         .to_dask()
         .compute()

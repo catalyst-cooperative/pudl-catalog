@@ -45,10 +45,10 @@ setup(
     zip_safe=False,
     python_requires=">=3.8,<3.11",
     install_requires=[
-        "gcsfs>=2022,<2023",
-        "intake>=0.6.5",
-        "intake_parquet>=0.2.3",
-        "intake_sql>=0.3.1",
+        "gcsfs>=2021.7,<2022.3.1",
+        "intake>=0.6.5,<0.7",
+        "intake_parquet>=0.2.3,<0.3",
+        "intake_sql>=0.3.1,<0.4",
         "msgpack>=1,<2",
         "pandas>=1.4,<1.5",
     ],
@@ -83,7 +83,7 @@ setup(
             "pydocstyle>=5.1,<7",  # Style guidelines for Python documentation
             "pytest>=6.2,<8",  # Our testing framework
             "pytest-cov>=2.10,<4.0",  # Pytest plugin for working with coverage
-            "rstcheck>=5,<6",  # ReStructuredText linter
+            "rstcheck[sphinx]>=5,<6",  # ReStructuredText linter
             "tox>=3.20,<4",  # Python test environment manager
         ],
     },
