@@ -49,6 +49,7 @@ setup(
         "intake>=0.6.5,<0.7",
         "intake_parquet>=0.2.3,<0.3",
         "intake_sql>=0.3.1,<0.4",
+        "intake_sqlite==0.1.2",
         "msgpack>=1,<2",
         "pandas>=1.4,<1.5",
     ],

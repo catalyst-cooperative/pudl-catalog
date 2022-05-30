@@ -4,7 +4,7 @@ description: A catalog of open energy system data for use by climate advocates,
 plugins:
   source:
     - module: intake_parquet
-#   - module: intake_sqlite
+    - module: intake_sqlite
 
 metadata:
   parameters:
@@ -21,12 +21,12 @@ metadata:
 sources:
 
   hourly_emissions_epacems:
-    driver: parquet
     description: Hourly pollution emissions and plant operational data reported via
       Continuous Emissions Monitoring Systems (CEMS) as required by 40 CFR Part 75.
       Includes CO2, NOx, and SO2, as well as the heat content of fuel consumed and
       gross power output. Hourly values reported by US EIA ORISPL code and emissions
       unit (smokestack) ID.
+    driver: parquet
     metadata:
       title: Continuous Emissions Monitoring System (CEMS) Hourly Data
       type: application/parquet
@@ -49,12 +49,12 @@ sources:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
   hourly_emissions_epacems_partitioned:
-    driver: parquet
     description: Hourly pollution emissions and plant operational data reported via
       Continuous Emissions Monitoring Systems (CEMS) as required by 40 CFR Part 75.
       Includes CO2, NOx, and SO2, as well as the heat content of fuel consumed and
       gross power output. Hourly values reported by US EIA ORISPL code and emissions
       unit (smokestack) ID.
+    driver: parquet
     metadata:
       title: Continuous Emissions Monitoring System (CEMS) Hourly Data
       type: application/parquet
@@ -76,31 +76,67 @@ sources:
         simplecache:
           cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
 
+  pudl:
+    description: The Public Utility Data Liberation Database, containing open data
+      related to the US electricity and natural gas systems.
+    driver: sqlite_cat
+    args:
+      urlpath: '{{ env(PUDL_INTAKE_PATH) }}/pudl.sqlite'
+      storage_options:
+        gs:
+          requester_pays: true
+        simplecache:
+          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+    metadata:
+      provider: Catalyst Cooperative
+      title: PUDL Database
+      path: "https://catalyst.coop/pudl"
+      license:
+        name: "CC-BY-4.0"
+        title: "Creative Commons Attribution 4.0"
+        path: "https://creativecommons.org/licenses/by/4.0"
 
-#  pudl:
-#   driver: sqlite
-#   description: The Public Utility Data Liberation Database, containing open data
-#     related to the US electricity and natural gas systems.
+  ferc1:
+    description:
+      The Federal Energy Regulatory Commission (FERC) Form 1 is a comprehensive
+      financial and operating report submitted annually for electric rate regulation,
+      market oversight analysis, and financial audits by Major electric utilities,
+      licensees and others. Originally published using VisualFoxPro DBF files, and
+      transformed into SQLite by Catalyst Cooperative.
+    driver: sqlite_cat
+    args:
+      urlpath: '{{ env(PUDL_INTAKE_PATH) }}/ferc1.sqlite'
+      storage_options:
+        gs:
+          requester_pays: true
+        simplecache:
+          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+    metadata:
+      provider: Catalyst Cooperative
+      title: FERC Form 1
+      path: "https://www.ferc.gov/industries-data/electric/general-information/electric-industry-forms/form-1-electric-utility-annual"
+      license:
+        name: "CC-BY-4.0"
+        title: "Creative Commons Attribution 4.0"
+        path: "https://creativecommons.org/licenses/by/4.0"
 
-# ferc1:
-#   driver: sqlite
-#   description:
-#     The Federal Energy Regulatory Commission (FERC) Form 1 is a comprehensive
-#     financial and operating report submitted annually for electric rate regulation,
-#     market oversight analysis, and financial audits by Major electric utilities,
-#     licensees and others.
-#   metadata:
-#     provider: US Federal Energy Regulatory Commission
-#     title: FERC Form 1
-#     path: "https://www.ferc.gov/industries-data/electric/general-information/electric-industry-forms/form-1-electric-utility-annual"
-
-# censusdp1tract:
-#   driver: sqlite
-#   description: Census Demographic Profile 1 Geodatabase.
-#   metadata:
-#     provider: US Census Bureau
-#     path: "https://www.census.gov/geographies/mapping-files/2010/geo/tiger-data.html"
-#     license:
-#       name: "other-pd"
-#       title: "U.S. Government Works"
-#       path: "https://www.usa.gov/government-works"
+  censusdp1tract:
+    description:
+      Census Demographic Profile 1 Geodatabase, translated to SQLite by Catalyst
+      Cooperative.
+    driver: sqlite_cat
+    args:
+      urlpath: '{{ env(PUDL_INTAKE_PATH) }}/ferc1.sqlite'
+      storage_options:
+        gs:
+          requester_pays: true
+        simplecache:
+          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+    metadata:
+      provider: US Census Bureau
+      title: Census Demographic Profile 1 Geodatabase
+      path: "https://www.census.gov/geographies/mapping-files/2010/geo/tiger-data.html"
+      license:
+        name: "other-pd"
+        title: "U.S. Government Works"
+        path: "https://www.usa.gov/government-works"
