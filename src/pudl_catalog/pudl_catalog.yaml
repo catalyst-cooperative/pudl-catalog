@@ -126,7 +126,7 @@ sources:
       Cooperative.
     driver: sqlite_cat
     args:
-      urlpath: '{{ env(PUDL_INTAKE_PATH) }}/ferc1.sqlite'
+      urlpath: '{{ env(PUDL_INTAKE_PATH) }}/censusdp1tract.sqlite'
       storage_options:
         gs:
           requester_pays: true
