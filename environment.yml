@@ -11,6 +11,7 @@ dependencies:
   # Packages that need or benefit from or provide binary conda packages
   - python-snappy>=0.6,<0.7  # Supports snappy compression in pyarrow/parquet
   - numba>=0.55.1,<0.56  # numba speeds up some kinds of math by 100x
+  - google-cloud-sdk>=388
 
   # Jupyter packages:
   - jupyterlab>=3.2,<4
