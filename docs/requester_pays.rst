@@ -38,8 +38,6 @@ GCP-related activities. You should be able to log in with a Gmail account or ano
 Google ID. You don't need to use Gmail for your email. Your Google ID is just used for
 identification and authentication.
 
-.. image:: images/01-gcp-signup.png
-
 Create a New GCP Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -61,7 +59,7 @@ on that section, and you should come to the Manage Resources page.
 
 Click on the "Create Project" link near the top of the page:
 
-.. image:: images/02-manage-resources.png
+.. image:: images/01-manage-resources.png
 
 The only field you need to have filled in here is the Project Name. You can use the
 random one that is suggested by Google. If you're creating a project outside of any
@@ -76,7 +74,7 @@ The billing account is separate from the project you just created. See the
 and navigate to `<https://console.cloud.google.com/billing>`__. At the top of the page
 you should see a "Create Account" button.
 
-.. image:: images/03-create-billing-account.png
+.. image:: images/02-create-billing-account.png
 
 Enable billing on your project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,7 +91,7 @@ far righthand column labeled "Actions". The menu that pops up should have an
 "Add Billing" or "Change Billing" option. Click on that, and you should be given the
 choice of which billing account to associate with the selected project.
 
-.. image:: images/04-enable-project-billing.png
+.. image:: images/03-enable-project-billing.png
 
 Give yourself permission to spend credits
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,18 +111,18 @@ dropdown menu near the upper-left corner of the page).
 Click on the little pencil icon in the right column of the row associated with your
 Google ID to "edit principal".
 
-.. image:: images/05-iam-admin.png
+.. image:: images/04-iam-admin.png
 
 This should give you the option to associate a role with a particular combination of
 Principal and Project.
 
-.. image:: images/06-add-a-role.png
+.. image:: images/05-add-a-role.png
 
 Click on the "Role" field and type in "Service Usage Consumer"
 and it should filter the very long list of available roles down to a few, one of which
 is "Service Usage Consumer". Select that role, and click on the Save button.
 
-.. image:: images/07-add-service-usage-consumer.png
+.. image:: images/06-add-service-usage-consumer.png
 
 
 Check your GCP credit
@@ -138,12 +136,12 @@ To check in on your remaining credits or overall billing status you can go to th
 Billing Account Overview and click on the "Credit details" link in the Credits box on
 the right hand side of the page:
 
-.. image:: images/08-billing-account-overview.png
+.. image:: images/07-billing-account-overview.png
 
 This will show you a table of any existing GCP credits that have been granted to your
 account:
 
-.. image:: images/09-credits-status.png
+.. image:: images/08-credits-status.png
 
 Set up the Google Cloud SDK
 ---------------------------
