@@ -9,7 +9,7 @@ The PUDL Data Catalog
   :hidden:
   :maxdepth: 2
 
-  Requster Pays <requester_pays>
+  Requester Pays <requester_pays>
   Licensing <LICENSE>
   Code of Conduct <code_of_conduct>
   Release Notes <release_notes>

@@ -77,7 +77,7 @@ data egress fees. If you're not familiar with GCP or requester pays, we've writt
 short guide to setting up a GCP project to work with this type of data. See the
 `PUDL Catalog documentation <https://catalystcoop-pudl-catalog.readthedocs.io/en/latest/>`__.
 for details, and also the
-`GCP Documentation on accessing Requster Pays data <https://cloud.google.com/storage/docs/using-requester-pays#using>`__
+`GCP Documentation on accessing Requester Pays data <https://cloud.google.com/storage/docs/using-requester-pays#using>`__
 
 Import the Intake Catalogs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

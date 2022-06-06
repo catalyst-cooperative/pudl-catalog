@@ -13,13 +13,12 @@ we've set our cloud storage to use `requester pays
 <https://cloud.google.com/storage/docs/requester-pays>`__.
 
 "Requester pays" means the person downloading the data is responsible for those costs
-instead. As a user paying the data egress charges associated with your data usage is
-cheap, but as a data provider covering the data egress charges for all of your users can
-quickly get expensive! Downloading all of the EPA CEMS, FERC 1, PUDL, and US Census data
-we're publishing from North America should cost about $0.75, but if we had 1000
-downloads in a month that would cost of $750. The PUDL Intake catalog is also set up to
-try and cache the data locally so that it's not downloaded again until a new version is
-released.
+instead. As a user, the cost of a single download is cheap. But as a data provider,
+payihg for the downloads of all users can quickly get expensive! Downloading all of the
+EPA CEMS, FERC 1, PUDL, and US Census data we're publishing from North America should
+cost about $0.75, but if we had 1000 downloads in a month that would cost us $750. The
+PUDL Intake catalog is also set up to try and cache the data locally so that it's not
+downloaded again until a new version is released.
 
 Setting up a GCP project for billing
 ------------------------------------
@@ -32,11 +31,16 @@ running on GCP, you'll probably need to do something different.
 Create a GCP Account
 ~~~~~~~~~~~~~~~~~~~~
 
-Go to `<https://cloud.google.com>`__ and click on the "Get Started for Free" button.  A
-prompt should appear asking you to choose which Google account to use for your
-GCP-related activities. You should be able to log in with a Gmail account or another
-Google ID. You don't need to use Gmail for your email. Your Google ID is just used for
-identification and authentication.
+If you have never used GCP before, go to `<https://cloud.google.com>`__ and click on the
+"Get Started for Free" button.  A prompt should appear asking you to choose which Google
+account to use for your GCP-related activities. You should be able to log in with a
+Gmail account or another Google ID. You don't need to use Gmail for your email. Your
+Google ID is just used for identification and authentication.
+
+.. note::
+
+  If you already have a GCP account set up then you can just log in to your existing
+  account. Note that the free startup credits are only available for brand new accounts.
 
 Create a New GCP Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,6 +51,11 @@ thing it needs to do is identify who you are, and how you'd like to pay for any 
 associated with the accessing the data. These charges are from Google. Catalyst doesn't
 charge a markup or get any money from this, it's just a way to help cover the costs of
 distributing the data.
+
+.. note::
+
+  If you have a pre-existing GCP project that you want to use the PUDL Catalog within,
+  you can skip this step.
 
 Let's create a project for use in accessing public data.  Here's the
 `GCP documentation on creating a new project
@@ -76,6 +85,11 @@ you should see a "Create Account" button.
 
 .. image:: images/02-create-billing-account.png
 
+.. note::
+
+  If you have a pre-existing GCP Billing Account that you want to use to cover the cost of
+  downloading data, then you can skip this step.
+
 Enable billing on your project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -83,6 +97,11 @@ Now you need to associate the billing account you just created with the project 
 made in the previous step. You need to `enable billing for the project
 <https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project>`__
 through this account.
+
+.. note::
+
+  If you are using a pre-existing Billing Account and Project, you might still need to
+  associate them with each other if they haven't been used together previously.
 
 At the top of the `billing page <https://console.cloud.google.com/billing>`__ there
 should be two tabs: "My Billing Accounts" and "My Projects". Select "My Projects" and
@@ -93,8 +112,8 @@ choice of which billing account to associate with the selected project.
 
 .. image:: images/03-enable-project-billing.png
 
-Give yourself permission to spend credits
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Give yourself permission to spend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Finally, you need to give yourself (your Google ID) the power to spend money within
 the new project, using the billing method you just specified. See these instructions
