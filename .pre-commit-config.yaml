@@ -61,7 +61,7 @@ repos:
     args: [--config, tox.ini]
 
 - repo: https://github.com/myint/rstcheck
-  rev: v6.0.0rc3
+  rev: v6.0.0.post1
   hooks:
   - id: rstcheck
     additional_dependencies: [sphinx]
