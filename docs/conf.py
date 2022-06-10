@@ -91,9 +91,6 @@ exclude_patterns = ["_build"]
 
 # The theme to use for HTML and HTML Help pages.
 
-# user starts in dark mode
-default_dark_mode = False
-
 master_doc = "index"
 html_theme = "furo"
 html_logo = "_static/catalyst_logo-200x200.png"
