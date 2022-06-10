@@ -46,12 +46,9 @@ setup(
     python_requires=">=3.8,<3.11",
     install_requires=[
         "gcsfs>=2021.7,<2022.5.1",
-        "intake>=0.6.5,<0.7",
         "intake_parquet>=0.2.3,<0.3",
-        "intake_sql>=0.3.1,<0.4",
-        "intake_sqlite==0.1.2",
+        "intake_sqlite>=0.1.2",
         "msgpack>=1,<2",
-        "pandas>=1.4,<1.5",
     ],
     extras_require={
         "dev": [
@@ -78,6 +75,7 @@ setup(
             "flake8-rst-docstrings>=0.2,<0.3",  # Allow use of ReST in docstrings
             "flake8-use-fstring>=1,<2",  # Highlight use of old-style string formatting
             "mccabe>=0.6,<0.8",  # Checks that code isn't overly complicated
+            "pandas>=1.4,<1.5",
             "pep8-naming>=0.12,<0.14",  # Require PEP8 compliant variable names
             "pre-commit>=2.9,<3",  # Allow us to run pre-commit hooks in testing
             "pydocstyle>=5.1,<7",  # Style guidelines for Python documentation
