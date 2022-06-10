@@ -233,7 +233,7 @@ on that dataframe to actually read the data and return a pandas dataframe:
    469,4,2019-01-01 10:00:00+00:00,2019,CO,79,298,1.0,204.0,2129.2,126.2
    469,4,2019-01-01 11:00:00+00:00,2019,CO,79,298,1.0,204.0,2160.6,128.1
 
-For more usage examples see `[the Jupyter notebook] <https://github.com/catalyst-cooperative/pudl-catalog/blob/main/notebooks/pudl-catalog.ipynb>`__ at ``notebooks/pudl-catalog.ipynb``
+For more usage examples see `the Jupyter notebook <https://github.com/catalyst-cooperative/pudl-catalog/blob/main/notebooks/pudl-catalog.ipynb>`__ at ``notebooks/pudl-catalog.ipynb``
 
 
 Planned data distribution system
