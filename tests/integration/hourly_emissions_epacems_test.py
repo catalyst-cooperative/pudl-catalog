@@ -2,12 +2,13 @@
 import logging
 import os
 import time
-from typing import Literal
+from typing import Literal, Optional
 
+import dask.dataframe as dd
 import intake
 import pandas as pd
 import pytest
-from pandas.testing import assert_frame_equal
+from dask.dataframe.utils import check_matching_columns, is_dataframe_like
 
 from pudl_catalog import BASE_URLS
 from pudl_catalog.helpers import year_state_filter
@@ -18,13 +19,16 @@ TEST_YEARS = [2020]
 TEST_STATES = ["ID"]
 TEST_FILTERS = year_state_filter(years=TEST_YEARS, states=TEST_STATES)
 
+
+logger = logging.getLogger(__name__)
+
 os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["gs"]
 
 
 def parquet_url(
     protocol: Literal["gs", "https"],
-    partition: bool,
     table_name: str,
+    partition_suffix: Optional[str] = None,
 ) -> str:
     """Construct the path to a particular parquet table resource."""
     try:
@@ -34,7 +38,7 @@ def parquet_url(
             f"Received invalid protocol: {protocol}. Must be one of 'gs' or 'https'."
         )
     url = url + "/" + table_name
-    if not partition:
+    if partition_suffix is None:
         url += ".parquet"
     return url
 
@@ -42,79 +46,71 @@ def parquet_url(
 @pytest.fixture(scope="module")
 def expected_df() -> pd.DataFrame:
     """Read parquet data directly for comparison with Intake outputs."""
-    logger.info("Reading remote test data for comparison using pd.read_parquet().")
+    logger.debug("Reading remote test data for comparison using pd.read_parquet().")
     epacems_url = parquet_url(
         protocol="gs",
-        partition=False,
         table_name="hourly_emissions_epacems",
+        partition_suffix=None,
     )
-    return pd.read_parquet(
+    expected_df = pd.read_parquet(
         epacems_url,
         filters=TEST_FILTERS,
         storage_options={"requester_pays": True},
     )
+    is_dataframe_like(expected_df)
+    assert expected_df.shape == (70_272, 19)
+    return expected_df
 
 
 @pytest.mark.parametrize(
-    "protocol,partition",
+    "protocol,partition_suffix",
     [
-        ("gs", False),
-        ("gs", True),
+        ("gs", None),
+        ("gs", "_partitioned"),
     ],
 )
 def test_read_parquet(
     protocol: Literal["gs", "https"],
-    partition: bool,
+    partition_suffix: str,
     expected_df: pd.DataFrame,
 ) -> None:
     """Test direct access via read_parquet()."""
-    logger.info(
-        f"read_parquet, {protocol=}, {partition=}, {TEST_YEARS=}, {TEST_STATES=}:"
-    )
+    logger.debug(f"read_parquet, {protocol=}, {partition_suffix=}")
     epacems_url = parquet_url(
-        protocol=protocol, partition=partition, table_name="hourly_emissions_epacems"
+        protocol=protocol,
+        table_name="hourly_emissions_epacems",
+        partition_suffix=partition_suffix,
     )
     start_time = time.time()
-    df = pd.read_parquet(
-        epacems_url,
-        filters=TEST_FILTERS,
-        storage_options={"requester_pays": True},
-    )
+    actual_dd = dd.read_parquet(epacems_url, storage_options={"requester_pays": True})
     elapsed_time = time.time() - start_time
-    logger.info(f"    elapsed time: {elapsed_time:.2f}s")
-    assert_frame_equal(df, expected_df)
+    logger.debug(f"    elapsed time: {elapsed_time:.2f}s")
+    is_dataframe_like(actual_dd)
+    check_matching_columns(actual_dd, expected_df)
 
 
 @pytest.mark.parametrize(
-    "protocol,partition",
+    "protocol,partition_suffix",
     [
-        ("gs", False),
-        ("gs", True),
+        ("gs", None),
+        ("gs", "_partitioned"),
     ],
 )
 def test_intake_catalog(
     protocol: Literal["gs", "https"],
-    partition: bool,
+    partition_suffix: str,
     expected_df: pd.DataFrame,
 ) -> None:
     """Test reading data from the intake catalog."""
-    logger.info(
-        f"intake_catalog, {protocol=}, {partition=}, {TEST_YEARS=}, {TEST_STATES=}:"
-    )
+    logger.debug(f"intake_catalog, {protocol=}, {partition_suffix=}")
     os.environ["PUDL_INTAKE_PATH"] = BASE_URLS[protocol]
     pudl_cat = intake.cat.pudl_cat
     src = "hourly_emissions_epacems"
-    if partition:
-        src += "_partitioned"
+    if partition_suffix is not None:
+        src += partition_suffix
     start_time = time.time()
-    df = (
-        pudl_cat[src](
-            filters=TEST_FILTERS,
-            cache_method="",
-        )
-        .to_dask()
-        .compute()
-    )
+    actual_dd = pudl_cat[src](cache_method="").to_dask()
     elapsed_time = time.time() - start_time
-    logger.info(f"    elapsed time: {elapsed_time:.2f}s")
-    assert_frame_equal(df, expected_df, check_categorical=False)
+    logger.debug(f"    elapsed time: {elapsed_time:.2f}s")
+    is_dataframe_like(actual_dd)
+    check_matching_columns(actual_dd, expected_df)

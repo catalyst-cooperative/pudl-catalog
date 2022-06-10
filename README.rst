@@ -45,102 +45,46 @@ Catalog Contents
 Currently available datasets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Hourly Emissions from the EPA CEMS (Apache Parquet)
-
-Future datasets
-~~~~~~~~~~~~~~~
-
 * Raw FERC Form 1 DB (SQLite) -- `browse DB online <https://data.catalyst.coop/ferc1>`__
 * PUDL DB (SQLite) -- `browse DB online <https://data.catalyst.coop/pudl>`__
 * Census Demographic Profile 1 (SQLite)
+* Hourly Emissions from the EPA CEMS (Apache Parquet)
 
 Ongoing Development
 -------------------
 
-Development is currently being organized under these epics in the main
-PUDL repo:
+To track ongoing development of the PUDL Catalog you can follow these issues
+in the main PUDL repository:
 
 * `Intake SQLite Driver <https://github.com/catalyst-cooperative/pudl/issues/1156>`__
 * `EPA CEMS Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1564>`__
 * `PUDL Intake Catalog <https://github.com/catalyst-cooperative/pudl/issues/1179>`__
 
-See the `issues in the pudl-catalog repository
-<https://github.com/catalyst-cooperative/pudl-catalog/issues>`__ for more
-detailed tasks.
+See also:
 
-Usage
------
+* `pudl-catalog issues <https://github.com/catalyst-cooperative/pudl-catalog/issues>`__
+* `intake-sqlite issues <https://github.com/catalyst-cooperative/pudl-catalog/issues>`__
 
-Public data and "requester pays"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PUDL Catalog Usage
+------------------
 
-The data we're publishing in the PUDL Catalog is publicly accessible and distributed
-under the permissive `CC-BY-4.0 <https://creativecommons.org/licenses/by/4.0>`__
-license. Catalyst covers the cost of storing the data in Google cloud storage buckets.
-However, there are also fees incurred when data leaves the Google cloud infrastructure.
-Depending where you're downloading from, it costs $0.10-0.20 (USD) per GB.
+Accessing Public Cloud Data with Requester Pays
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In order to be able to share large amounts of public data without being exposed to large
-unexpected bills from Google due to someone maliciously or accidentally downloading a
-large volume of data programmatically, we've set the cloud storage to use `requester
-pays <https://cloud.google.com/storage/docs/requester-pays>`__. This means the person
-downloading the data is responsible for those (modest) costs instead. Downloading all of
-the EPA CEMS, FERC 1, PUDL, and US Census data we're publishing from North America will
-cost around $0.75, and it will be cached locally so that it's not downloaded again until
-a new version is released.
+To control the cost of distributing potentially large quantities of public data, we are
+using "requester pays." This means that whoever is downloading the data pays the modest
+data egress fees. If you're not familiar with GCP or requester pays, we've written a
+short guide to setting up a GCP project to work with this type of data. See the
+`PUDL Catalog documentation <https://catalystcoop-pudl-catalog.readthedocs.io/en/latest/>`__.
+for details, and also the
+`GCP Documentation on accessing Requester Pays data <https://cloud.google.com/storage/docs/using-requester-pays#using>`__
 
-To set up a GCP billing project and use it for authentication when accessing the
-catalog:
+Import the Intake Catalogs
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* `Create a project on GCP <https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project>`__;
-  if this is the first time using GCP, a prompt should appear asking you to choose which
-  Google account to use for your GCP-related activities. (You should also receive $300
-  in initial cloud credits.
-* `Create a Cloud Billing account <https://cloud.google.com/billing/docs/how-to/manage-billing-account#create_a_new_billing_account>`__
-  associated with the project and `enable billing for the project
-  <https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project>`__
-  through this account.
-* `Using Google Cloud IAM <https://cloud.google.com/iam/docs/granting-changing-revoking-access#granting-console>`__,
-  add the **Service Usage Consumer** role to your account, which enables it to make
-  billed requests on the behalf of the project.
-* Install the `gcloud utilities <https://cloud.google.com/sdk/docs/install>`__ on your
-  computer. This can be done using ``conda`` (or ``mamba``):
-
-.. code:: bash
-
-  conda install -c conda-forge google-cloud-sdk
-
-* Initialize the ``gcloud`` command line interface, logging into the account used to
-  create the aforementioned project and selecting it as the default project; this will
-  allow the project to be used for requester pays access through the command line:
-
-.. code:: bash
-
-  gcloud auth login
-  gcloud init
-
-* Finally, use ``gcloud`` to establish application default credentials; this will allow
-  the project to be used for requester pays access through applications:
-
-.. code:: bash
-
-  gcloud auth application-default login
-
-* To test whether your GCP account is set up correctly and authenticated you can run the
-  following command to list the contents of the cloud storage bucket containing the
-  intake catalog data:
-
-.. code:: bash
-
-   gsutil ls gs://intake.catalyst.coop
-
-Import Intake Catalogs
-~~~~~~~~~~~~~~~~~~~~~~
-
-The ``pudl_catalog`` registers as an available data source within Intake when
-it’s installed, so you can grab it from the top level Intake catalog. To see
-what data sources are available within the catalog you turn it into a list (yes
-this is weird).
+The ``pudl_catalog`` registers itself as an available data source within Intake when
+it's installed, so you can grab it from the top level Intake catalog. To see what data
+sources are available within the catalog you turn it into a list (yes this is weird).
 
 .. code:: py
 
@@ -153,7 +97,13 @@ this is weird).
 
 .. code:: text
 
-   ['hourly_emissions_epacems', 'hourly_emissions_epacems_partitioned']
+  [
+    'hourly_emissions_epacems',
+    'hourly_emissions_epacems_partitioned',
+    'pudl',
+    'ferc1',
+    'censusdp1tract'
+  ]
 
 Inspect the catalog data source
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

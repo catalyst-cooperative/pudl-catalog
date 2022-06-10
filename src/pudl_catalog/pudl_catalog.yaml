@@ -7,12 +7,6 @@ plugins:
     - module: intake_sqlite
 
 metadata:
-  parameters:
-    cache_method:
-      description: "Whether to cache data locally; empty string to disable caching."
-      type: str
-      default: "simplecache::"
-      allowed: ["simplecache::", ""]
   creator:
     title: "Catalyst Cooperative"
     email: "pudl@catalyst.coop"
@@ -27,6 +21,12 @@ sources:
       gross power output. Hourly values reported by US EIA ORISPL code and emissions
       unit (smokestack) ID.
     driver: parquet
+    parameters:
+      cache_method:
+        description: "Whether to cache data locally; empty string to disable caching."
+        type: str
+        default: "simplecache::"
+        allowed: ["simplecache::", ""]
     metadata:
       title: Continuous Emissions Monitoring System (CEMS) Hourly Data
       type: application/parquet
@@ -55,6 +55,12 @@ sources:
       gross power output. Hourly values reported by US EIA ORISPL code and emissions
       unit (smokestack) ID.
     driver: parquet
+    parameters:
+      cache_method:
+        description: "Whether to cache data locally; empty string to disable caching."
+        type: str
+        default: "simplecache::"
+        allowed: ["simplecache::", ""]
     metadata:
       title: Continuous Emissions Monitoring System (CEMS) Hourly Data
       type: application/parquet

@@ -46,12 +46,9 @@ setup(
     python_requires=">=3.8,<3.11",
     install_requires=[
         "gcsfs>=2021.7,<2022.5.1",
-        "intake>=0.6.5,<0.7",
         "intake_parquet>=0.2.3,<0.3",
-        "intake_sql>=0.3.1,<0.4",
-        "intake_sqlite==0.1.2",
+        "intake_sqlite>=0.1.2",
         "msgpack>=1,<2",
-        "pandas>=1.4,<1.5",
     ],
     extras_require={
         "dev": [
@@ -62,11 +59,10 @@ setup(
         ],
         "docs": [
             "doc8>=0.9,<0.12",  # Ensures clean documentation formatting
+            "furo>=2022.4.7",
             "sphinx>=4,<6",  # The default Python documentation redering engine
             "sphinx-autoapi>=1.8,<2",  # Generates documentation from docstrings
             "sphinx-issues>=1.2,<4.0",  # Allows references to GitHub issues
-            "sphinx-rtd-dark-mode>=1.2,<2",  # Allow user to toggle light/dark mode
-            "sphinx-rtd-theme>=1,<2",  # Standard Sphinx theme for Read The Docs
         ],
         "tests": [
             "bandit>=1.6,<2",  # Checks code for security issues
@@ -79,6 +75,7 @@ setup(
             "flake8-rst-docstrings>=0.2,<0.3",  # Allow use of ReST in docstrings
             "flake8-use-fstring>=1,<2",  # Highlight use of old-style string formatting
             "mccabe>=0.6,<0.8",  # Checks that code isn't overly complicated
+            "pandas>=1.4,<1.5",
             "pep8-naming>=0.12,<0.14",  # Require PEP8 compliant variable names
             "pre-commit>=2.9,<3",  # Allow us to run pre-commit hooks in testing
             "pydocstyle>=5.1,<7",  # Style guidelines for Python documentation
