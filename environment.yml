@@ -9,8 +9,8 @@ dependencies:
   - setuptools<62
 
   # Packages that need or benefit from or provide binary conda packages
-  - python-snappy>=0.6,<0.7  # Supports snappy compression in pyarrow/parquet
-  - numba>=0.55.1,<0.56  # numba speeds up some kinds of math by 100x
+  - python-snappy>=0.6,<0.7 # Supports snappy compression in pyarrow/parquet
+  - numba>=0.55.1,<0.56 # numba speeds up some kinds of math by 100x
   - google-cloud-sdk>=388
 
   # Jupyter packages:
@@ -20,4 +20,4 @@ dependencies:
 
   # Use pip to install the package defined by this repo for development:
   - pip:
-    - --editable ./[dev,docs,tests]
+      - --editable ./[dev,docs,tests]

@@ -13,9 +13,9 @@ metadata:
     path: "https://catalyst.coop"
 
 sources:
-
   hourly_emissions_epacems:
-    description: Hourly pollution emissions and plant operational data reported via
+    description:
+      Hourly pollution emissions and plant operational data reported via
       Continuous Emissions Monitoring Systems (CEMS) as required by 40 CFR Part 75.
       Includes CO2, NOx, and SO2, as well as the heat content of fuel consumed and
       gross power output. Hourly values reported by US EIA ORISPL code and emissions
@@ -37,19 +37,20 @@ sources:
         title: "Creative Commons Attribution 4.0"
         path: "https://creativecommons.org/licenses/by/4.0"
     args: # These arguments are for dask.dataframe.read_parquet()
-      engine: 'pyarrow'
+      engine: "pyarrow"
       split_row_groups: true
       index: false
-      urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet'
+      urlpath: "{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet"
       storage_options:
         requester_pays: true
         gs:
           requester_pays: true
         simplecache:
-          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+          cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
 
   hourly_emissions_epacems_partitioned:
-    description: Hourly pollution emissions and plant operational data reported via
+    description:
+      Hourly pollution emissions and plant operational data reported via
       Continuous Emissions Monitoring Systems (CEMS) as required by 40 CFR Part 75.
       Includes CO2, NOx, and SO2, as well as the heat content of fuel consumed and
       gross power output. Hourly values reported by US EIA ORISPL code and emissions
@@ -71,28 +72,29 @@ sources:
         title: "Creative Commons Attribution 4.0"
         path: "https://creativecommons.org/licenses/by/4.0"
     args: # These arguments are for dask.dataframe.read_parquet()
-      engine: 'pyarrow'
+      engine: "pyarrow"
       split_row_groups: true
       index: false
-      urlpath: '{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet'
+      urlpath: "{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet"
       storage_options:
         requester_pays: true
         gs:
           requester_pays: true
         simplecache:
-          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+          cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
 
   pudl:
-    description: The Public Utility Data Liberation Database, containing open data
+    description:
+      The Public Utility Data Liberation Database, containing open data
       related to the US electricity and natural gas systems.
     driver: sqlite_cat
     args:
-      urlpath: '{{ env(PUDL_INTAKE_PATH) }}/pudl.sqlite'
+      urlpath: "{{ env(PUDL_INTAKE_PATH) }}/pudl.sqlite"
       storage_options:
         gs:
           requester_pays: true
         simplecache:
-          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+          cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
     metadata:
       provider: Catalyst Cooperative
       title: PUDL Database
@@ -111,12 +113,12 @@ sources:
       transformed into SQLite by Catalyst Cooperative.
     driver: sqlite_cat
     args:
-      urlpath: '{{ env(PUDL_INTAKE_PATH) }}/ferc1.sqlite'
+      urlpath: "{{ env(PUDL_INTAKE_PATH) }}/ferc1.sqlite"
       storage_options:
         gs:
           requester_pays: true
         simplecache:
-          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+          cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
     metadata:
       provider: Catalyst Cooperative
       title: FERC Form 1
@@ -132,12 +134,12 @@ sources:
       Cooperative.
     driver: sqlite_cat
     args:
-      urlpath: '{{ env(PUDL_INTAKE_PATH) }}/censusdp1tract.sqlite'
+      urlpath: "{{ env(PUDL_INTAKE_PATH) }}/censusdp1tract.sqlite"
       storage_options:
         gs:
           requester_pays: true
         simplecache:
-          cache_storage: '{{ env(PUDL_INTAKE_CACHE) }}'
+          cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
     metadata:
       provider: US Census Bureau
       title: Census Demographic Profile 1 Geodatabase

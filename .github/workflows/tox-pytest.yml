@@ -11,67 +11,67 @@ jobs:
       fail-fast: false
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-        export_environment_variables: true
+      - id: "auth"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v0"
+        with:
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+          export_environment_variables: true
 
-    - name: Set up conda environment for testing
-      uses: conda-incubator/setup-miniconda@v2.1.1
-      with:
-        miniforge-variant: Mambaforge
-        miniforge-version: latest
-        use-mamba: true
-        mamba-version: "*"
-        channels: conda-forge,defaults
-        channel-priority: true
-        python-version: ${{ matrix.python-version }}
-        activate-environment: pudl-catalog
-        environment-file: environment.yml
-    - shell: bash -l {0}
-      run: |
-        conda info
-        conda list
-        conda config --show-sources
-        conda config --show
-        printenv | sort
+      - name: Set up conda environment for testing
+        uses: conda-incubator/setup-miniconda@v2.1.1
+        with:
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+          use-mamba: true
+          mamba-version: "*"
+          channels: conda-forge,defaults
+          channel-priority: true
+          python-version: ${{ matrix.python-version }}
+          activate-environment: pudl-catalog
+          environment-file: environment.yml
+      - shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+          conda config --show-sources
+          conda config --show
+          printenv | sort
 
-    - name: Run PyTest with Tox
-      run: |
-        conda run -n pudl-catalog tox
+      - name: Run PyTest with Tox
+        run: |
+          conda run -n pudl-catalog tox
 
-    - name: Upload test coverage report to CodeCov
-      uses: codecov/codecov-action@v3
+      - name: Upload test coverage report to CodeCov
+        uses: codecov/codecov-action@v3
 
   ci-notify:
     runs-on: ubuntu-latest
     if: ${{ always() }}
     needs: ci-test
     steps:
-    - name: Inform the Codemonkeys
-      uses: 8398a7/action-slack@v3
-      with:
-        status: custom
-        fields: workflow,job,commit,repo,ref,author,took
-        custom_payload: |
-          {
-            username: 'action-slack',
-            icon_emoji: ':octocat:',
-            attachments: [{
-              color: '${{ needs.ci-test.result }}' === 'success' ? 'good' : '${{ needs.ci-test.result }}' === 'failure' ? 'danger' : 'warning',
-              text: `${process.env.AS_REPO}@${process.env.AS_REF}\n ${process.env.AS_WORKFLOW} (${process.env.AS_COMMIT})\n by ${process.env.AS_AUTHOR}\n Status: ${{ needs.ci-test.result }}`,
-            }]
-          }
-      env:
-        GITHUB_TOKEN: ${{ github.token }} # required
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
+      - name: Inform the Codemonkeys
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: workflow,job,commit,repo,ref,author,took
+          custom_payload: |
+            {
+              username: 'action-slack',
+              icon_emoji: ':octocat:',
+              attachments: [{
+                color: '${{ needs.ci-test.result }}' === 'success' ? 'good' : '${{ needs.ci-test.result }}' === 'failure' ? 'danger' : 'warning',
+                text: `${process.env.AS_REPO}@${process.env.AS_REF}\n ${process.env.AS_WORKFLOW} (${process.env.AS_COMMIT})\n by ${process.env.AS_AUTHOR}\n Status: ${{ needs.ci-test.result }}`,
+              }]
+            }
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+          MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
 
   dependabot-auto-merge:
     runs-on: ubuntu-latest
@@ -81,5 +81,5 @@ jobs:
       - name: Automerge passing dependabot PR
         uses: ridedott/merge-me-action@v2
         with:
-          GITHUB_LOGIN: dependabot  # For clarity only. dependabot is default.
+          GITHUB_LOGIN: dependabot # For clarity only. dependabot is default.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
