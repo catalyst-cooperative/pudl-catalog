@@ -65,7 +65,7 @@ repos:
       - id: doc8
         args: [--config, tox.ini]
 
-  - repo: https://github.com/myint/rstcheck
+  - repo: https://github.com/rstcheck/rstcheck
     rev: v6.1.0
     hooks:
       - id: rstcheck
