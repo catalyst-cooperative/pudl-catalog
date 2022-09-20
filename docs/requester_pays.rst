@@ -176,13 +176,13 @@ sibling ``mamba``, since you'll likely be using this catalog in the context of a
 existing conda environment. If you're not using `conda` environments, there are other
 ways to install the Google Cloud SDK explained in the link above.
 
-.. code:: bash
+.. code::
 
   conda install -c conda-forge google-cloud-sdk
 
 Log into the account you used to create your new project above by running:
 
-.. code:: bash
+.. code::
 
   gcloud auth login
 
@@ -194,21 +194,75 @@ shell environment variables.
 If it asks you whether you want to "re-initialize this configuration with new settings"
 say yes.
 
-.. code:: bash
+.. code::
 
   gcloud init
 
 Finally, use ``gcloud`` to establish application default credentials; this will allow
 the project to be used for requester pays access through applications:
 
-.. code:: bash
+.. code::
 
   gcloud auth application-default login
 
 To test whether your GCP account is set up correctly and authenticated you can run the
 following command to list the contents of the cloud storage bucket containing the PUDL
-catalog data. This doesn't actually download any data.
+catalog data. This doesn't actually download any data, but will show you the versions
+that are available:
 
-.. code:: bash
+.. code::
 
    gsutil ls gs://intake.catalyst.coop
+
+.. code::
+
+   gs://intake.catalyst.coop/dev/
+   gs://intake.catalyst.coop/v0.1.0/
+
+Every night we attempt to build a new catalog based on the code and data associated with
+the ``dev`` branch of the PUDL repository. If the nightly build and data validation
+succeed, the outputs are copied to ``gs://intake.catalyst.coop/dev``. To see what's
+available there, how fresh it is, and how big the files are, you can use ``gsutil``
+like this:
+
+.. code::
+
+   gsutil ls -l gs://intake.catalyst.coop/dev
+
+    843649024  2022-09-15T12:27:02Z  gs://intake.catalyst.coop/dev/censusdp1tract.sqlite
+    761257984  2022-09-15T12:27:04Z  gs://intake.catalyst.coop/dev/ferc1.sqlite
+   5110330869  2022-09-15T12:28:59Z  gs://intake.catalyst.coop/dev/hourly_emissions_epacems.parquet
+    702459904  2022-09-15T12:27:01Z  gs://intake.catalyst.coop/dev/pudl.sqlite
+                                     gs://intake.catalyst.coop/dev/hourly_emissions_epacems/
+   TOTAL: 4 objects, 7417697781 bytes (6.91 GiB)
+
+.. warning::
+
+   If you download the files directly with ``gsutil`` then you'll be responsible for
+   updating them, making sure you have the right version, putting them in the right
+   place on your computer, etc. You also won't benefit from the caching that the Intake
+   catalogs do. For easier automatic updates, data versioning and dependency management,
+   we recommend using the Intake catalog rather than direct downloads. But for
+   developent work it can often be convenient to grab the fresh nightly build outputs.
+
+If you want to copy these files down directly to your computer, rather than using the
+PUDL Intake catalog, you can use the ``gsutil cp`` command, which behaves very much like
+the Unix ``cp`` command:
+
+.. code::
+
+   gsutil cp gs://intake.catalyst.coop/dev/pudl.sqlite ./
+
+If you wanted to download all of the build outputs (more than 10GB!) you could use ``cp
+-r`` on the whole directory:
+
+.. code::
+
+   gsutil cp -r gs://intake.catalyst.coop/dev/ ./
+
+For more details on how to use ``gsutil`` in general see the
+`online documentation <https://cloud.google.com/storage/docs/gsutil>`__ or run:
+
+.. code::
+
+   gsutil --help
