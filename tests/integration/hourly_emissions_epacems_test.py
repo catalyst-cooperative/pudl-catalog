@@ -58,7 +58,7 @@ def expected_df() -> pd.DataFrame:
         storage_options={"requester_pays": True},
     )
     is_dataframe_like(expected_df)
-    assert expected_df.shape == (70_272, 16)
+    assert expected_df.shape == (70_272, 19)
     return expected_df
 
 
