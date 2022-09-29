@@ -80,7 +80,7 @@ setup(
             "pre-commit>=2.9,<3",  # Allow us to run pre-commit hooks in testing
             "pydocstyle>=5.1,<7",  # Style guidelines for Python documentation
             "pytest>=6.2,<8",  # Our testing framework
-            "pytest-cov>=2.10,<4.0",  # Pytest plugin for working with coverage
+            "pytest-cov>=2.10,<5.0",  # Pytest plugin for working with coverage
             "rstcheck[sphinx]>=5,<7",  # ReStructuredText linter
             "tox>=3.20,<4",  # Python test environment manager
         ],
