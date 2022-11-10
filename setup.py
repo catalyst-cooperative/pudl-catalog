@@ -45,7 +45,7 @@ setup(
     zip_safe=False,
     python_requires=">=3.8,<3.11",
     install_requires=[
-        "gcsfs>=2021.7,<2022.10.1",
+        "gcsfs>=2021.7,<2022.11.1",
         "intake_parquet>=0.2.3,<0.3",
         "intake_sqlite>=0.1.2",
         "msgpack>=1,<2",
