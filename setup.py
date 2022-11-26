@@ -36,6 +36,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Scientific/Engineering",
     ],
     packages=find_packages("src"),
@@ -43,11 +44,12 @@ setup(
     include_package_data=True,
     package_data={"": ["*.yml", "*.yaml"]},
     zip_safe=False,
-    python_requires=">=3.8,<3.11",
+    python_requires=">=3.8,<3.12",
     install_requires=[
         "gcsfs>=2021.7,<2022.11.1",
         "intake_parquet>=0.2.3,<0.3",
-        "intake_sqlite>=0.1.2",
+        # "intake_sqlite>=0.1.2",
+        "intake_sqlite @ git+https://github.com/catalyst-cooperative/intake-sqlite@dev",
         "msgpack>=1,<2",
     ],
     extras_require={

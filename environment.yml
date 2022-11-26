@@ -5,12 +5,13 @@ channels:
 dependencies:
   # Packages required for setting up the environment
   - pip>=21,<23
-  - python>=3.8,<3.11
-  - setuptools<62
+  - python>=3.8,<3.12
+  - setuptools<66
 
   # Packages that need or benefit from or provide binary conda packages
   - python-snappy>=0.6,<0.7 # Supports snappy compression in pyarrow/parquet
-  - numba>=0.55.1,<0.56 # numba speeds up some kinds of math by 100x
+  - cramjam>=2.6 # Supports snappy compression w/o a system library
+  # - numba>=0.55.1,<0.57 # numba JITC, not yet Python 3.11 compatible
   - google-cloud-sdk>=388
 
   # Jupyter packages:
