@@ -48,8 +48,7 @@ setup(
     install_requires=[
         "gcsfs>=2021.7,<2022.11.1",
         "intake_parquet>=0.2.3,<0.3",
-        # "intake_sqlite>=0.1.2",
-        "intake_sqlite @ git+https://github.com/catalyst-cooperative/intake-sqlite@dev",
+        "intake_sqlite>=0.2.0",
         "msgpack>=1,<2",
     ],
     extras_require={
