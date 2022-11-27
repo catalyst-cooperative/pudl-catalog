@@ -9,12 +9,10 @@ dependencies:
   - setuptools<66
 
   # Packages that need or benefit from or provide binary conda packages
-  - python-snappy>=0.6,<0.7 # Supports snappy compression in pyarrow/parquet
-  - cramjam>=2.6 # Supports snappy compression w/o a system library
   # - numba>=0.55.1,<0.57 # numba JITC, not yet Python 3.11 compatible
   - google-cloud-sdk>=388
 
-  # Jupyter packages:
+  # Jupyter packages for interactive development / testing
   - jupyterlab>=3.2,<4
   - jupyter-resource-usage>=0.5,<0.7
   - nbconvert>=6,<7
