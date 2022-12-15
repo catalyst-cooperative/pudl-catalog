@@ -68,6 +68,21 @@ See also:
 PUDL Catalog Usage
 ------------------
 
+Installation
+~~~~~~~~~~~~
+You can install the PUDL Catalog using conda:
+
+.. code:: text
+
+   conda install -c conda-forge catalystcoop.pudl
+
+or pip:
+
+.. code:: text
+
+   pip install catalystcoop.pudl-catalog
+
+
 Accessing Public Cloud Data with Requester Pays
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
