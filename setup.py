@@ -56,7 +56,7 @@ setup(
         "dev": [
             "black>=22,<23",  # A deterministic code formatter
             "isort>=5,<6",  # Standardized import sorting
-            "tox>=3.20,<4",  # Python test environment manager
+            "tox>=3.20,<5",  # Python test environment manager
             "twine>=3.3,<5.0",  # Used to make releases to PyPI
         ],
         "docs": [
@@ -74,7 +74,7 @@ setup(
             "flake8-builtins>=1.5,<3",  # Avoid shadowing Python built-in names
             "flake8-colors>=0.1,<0.2",  # Produce colorful error / warning output
             "flake8-docstrings>=1.5,<2",  # Ensure docstrings are formatted well
-            "flake8-rst-docstrings>=0.2,<0.3",  # Allow use of ReST in docstrings
+            "flake8-rst-docstrings>=0.2,<0.4",  # Allow use of ReST in docstrings
             "flake8-use-fstring>=1,<2",  # Highlight use of old-style string formatting
             "mccabe>=0.6,<0.8",  # Checks that code isn't overly complicated
             "pandas>=1.4,<1.6",
@@ -84,7 +84,7 @@ setup(
             "pytest>=6.2,<8",  # Our testing framework
             "pytest-cov>=2.10,<5.0",  # Pytest plugin for working with coverage
             "rstcheck[sphinx]>=5,<7",  # ReStructuredText linter
-            "tox>=3.20,<4",  # Python test environment manager
+            "tox>=3.20,<5",  # Python test environment manager
         ],
     },
     setup_requires=["setuptools_scm"],
