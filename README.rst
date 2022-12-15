@@ -394,5 +394,5 @@ This work is supported by a generous grant from the `Alfred P. Sloan Foundation
 <https://sloan.org/>`__ and their `Energy & Environment Program
 <https://sloan.org/programs/research/energy-and-environment>`__
 
-Storage and egress fees for this data are covered by `Amazon Web Services's 
+Storage and egress fees for this data are covered by `Amazon Web Services's
 Open Data Sponsorship Program <https://aws.amazon.com/opendata/open-data-sponsorship-program/>`__.
