@@ -82,18 +82,6 @@ or pip:
 
    pip install catalystcoop.pudl-catalog
 
-
-Accessing Public Cloud Data with Requester Pays
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To control the cost of distributing potentially large quantities of public data, we are
-using "requester pays." This means that whoever is downloading the data pays the modest
-data egress fees. If you're not familiar with GCP or requester pays, we've written a
-short guide to setting up a GCP project to work with this type of data. See the
-`PUDL Catalog documentation <https://catalystcoop-pudl-catalog.readthedocs.io/en/latest/>`__.
-for details, and also the
-`GCP Documentation on accessing Requester Pays data <https://cloud.google.com/storage/docs/using-requester-pays#using>`__
-
 Import the Intake Catalogs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
