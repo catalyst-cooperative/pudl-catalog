@@ -45,6 +45,8 @@ sources:
         requester_pays: true
         gs:
           requester_pays: true
+        s3:
+          anon: true
         simplecache:
           cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
 
@@ -80,6 +82,8 @@ sources:
         requester_pays: true
         gs:
           requester_pays: true
+        s3:
+          anon: true
         simplecache:
           cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
 
@@ -93,6 +97,8 @@ sources:
       storage_options:
         gs:
           requester_pays: true
+        s3:
+          anon: true
         simplecache:
           cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
     metadata:
@@ -117,6 +123,8 @@ sources:
       storage_options:
         gs:
           requester_pays: true
+        s3:
+          anon: true
         simplecache:
           cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
     metadata:
@@ -136,6 +144,8 @@ sources:
     args:
       urlpath: "{{ env(PUDL_INTAKE_PATH) }}/censusdp1tract.sqlite"
       storage_options:
+        s3:
+          anon: true
         gs:
           requester_pays: true
         simplecache:
