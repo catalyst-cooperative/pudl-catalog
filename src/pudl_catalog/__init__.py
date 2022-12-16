@@ -13,7 +13,7 @@ logger.addHandler(logging.NullHandler())
 
 INTAKE_BUCKET = "intake.catalyst.coop"
 # Ideally we would set this version automatically using setuptools_scm...
-CATALOG_VERSION = "v2022.11.30"
+CATALOG_VERSION = "dev"
 
 BASE_URLS = {
     "gs": f"gs://{INTAKE_BUCKET}/{CATALOG_VERSION}",
