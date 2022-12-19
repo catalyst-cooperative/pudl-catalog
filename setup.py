@@ -46,6 +46,7 @@ setup(
     zip_safe=False,
     python_requires=">=3.8,<3.12",
     install_requires=[
+        "boto3>=1.24,<1.27",
         "s3fs>=2021.7,<2022.11.1",
         "gcsfs>=2021.7,<2022.11.1",
         "intake_parquet>=0.2.3,<0.3",
@@ -72,7 +73,7 @@ setup(
             "doc8>=0.9,<1.1",  # Ensures clean documentation formatting
             "flake8>=4,<7",  # A framework for linting & static analysis
             "flake8-builtins>=1.5,<3",  # Avoid shadowing Python built-in names
-            "flake8-colors>=0.1,<0.2",  # Produce colorful error / warning output
+            "flake8-colors>=0.1.9,<0.2",  # Produce colorful error / warning output
             "flake8-docstrings>=1.5,<2",  # Ensure docstrings are formatted well
             "flake8-rst-docstrings>=0.2,<0.4",  # Allow use of ReST in docstrings
             "flake8-use-fstring>=1,<2",  # Highlight use of old-style string formatting
