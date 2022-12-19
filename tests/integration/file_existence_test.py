@@ -3,9 +3,9 @@ import logging
 
 import boto3
 import pytest
-from google.cloud import storage
 from botocore import UNSIGNED
 from botocore.config import Config
+from google.cloud import storage
 
 from pudl_catalog import CATALOG_VERSION, INTAKE_BUCKET
 
@@ -36,6 +36,7 @@ def test_gcs_file_exists(filename: str) -> None:
     blob = storage.blob.Blob(name=fullname, bucket=bucket)
     assert blob.exists()
 
+
 @pytest.mark.parametrize(
     "filename",
     [
@@ -55,16 +56,17 @@ def test_s3_file_exists(filename: str) -> None:
     # From https://github.com/boto/boto3/issues/1200#issuecomment-319141394
     # Have to request all of the files because we get an authentication
     # error when using Client().get_object_attributes().
-    s3 = boto3.client('s3', config=Config(signature_version=UNSIGNED))
+    s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 
-    paginator = s3.get_paginator('list_objects_v2')
+    paginator = s3.get_paginator("list_objects_v2")
     page_iterator = paginator.paginate(Bucket=INTAKE_BUCKET)
     files = []
     for page in page_iterator:
-        files += page['Contents']
-        
+        files += page["Contents"]
+
     filenames = [file["Key"] for file in files]
     fullname = CATALOG_VERSION + "/" + filename
 
-    assert fullname in filenames, f"{fullname} is not in the {INTAKE_BUCKET}/{CATALOG_VERSION} bucket."
-
+    assert (
+        fullname in filenames
+    ), f"{fullname} is not in the {INTAKE_BUCKET}/{CATALOG_VERSION} bucket."
