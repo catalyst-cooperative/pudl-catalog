@@ -68,16 +68,19 @@ See also:
 PUDL Catalog Usage
 ------------------
 
-Accessing Public Cloud Data with Requester Pays
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Installation
+~~~~~~~~~~~~
+You can install the PUDL Catalog using conda:
 
-To control the cost of distributing potentially large quantities of public data, we are
-using "requester pays." This means that whoever is downloading the data pays the modest
-data egress fees. If you're not familiar with GCP or requester pays, we've written a
-short guide to setting up a GCP project to work with this type of data. See the
-`PUDL Catalog documentation <https://catalystcoop-pudl-catalog.readthedocs.io/en/latest/>`__.
-for details, and also the
-`GCP Documentation on accessing Requester Pays data <https://cloud.google.com/storage/docs/using-requester-pays#using>`__
+.. code:: text
+
+   conda install -c conda-forge catalystcoop.pudl
+
+or pip:
+
+.. code:: text
+
+   pip install catalystcoop.pudl-catalog
 
 Import the Intake Catalogs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -183,6 +186,11 @@ types:
       'title': 'Creative Commons Attribution 4.0',
       'path': 'https://creativecommons.org/licenses/by/4.0'},
      'catalog_dir': '/home/zane/code/catalyst/pudl-catalog/src/pudl_catalog/'}}
+
+.. note::
+
+    If the data has not been cached this method might take a while to finish depending
+    on your internet speed. The EPA CEMS parquet data is almost 5 GB.
 
 Read some data from the catalog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -390,3 +398,6 @@ Funding
 This work is supported by a generous grant from the `Alfred P. Sloan Foundation
 <https://sloan.org/>`__ and their `Energy & Environment Program
 <https://sloan.org/programs/research/energy-and-environment>`__
+
+Storage and egress fees for this data are covered by `Amazon Web Services's
+Open Data Sponsorship Program <https://aws.amazon.com/opendata/open-data-sponsorship-program/>`__.
