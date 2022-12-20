@@ -1,9 +1,9 @@
 """Test cases for the EPA CEMS data source."""
 import logging
 import os
-from pathlib import Path
 import time
 import typing
+from pathlib import Path
 from typing import Literal, Optional
 
 import dask.dataframe as dd
@@ -89,9 +89,9 @@ def test_read_parquet(
         partition_suffix=partition_suffix,
     )
     start_time = time.time()
-    
+
     storage_options = {}
-    if protocol == "gcs":
+    if protocol == "gs":
         storage_options["requester_pays"] = True
     elif protocol == "s3":
         storage_options["anon"] = True
@@ -116,7 +116,7 @@ def test_intake_catalog(
     protocol: InternetProtocol,
     partition_suffix: str,
     expected_df: pd.DataFrame,
-    tmp_path: Path
+    tmp_path: Path,
 ) -> None:
     """Test reading data from the intake catalog."""
     logger.debug(f"intake_catalog, {protocol=}, {partition_suffix=}")

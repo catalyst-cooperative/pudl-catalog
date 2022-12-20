@@ -187,6 +187,11 @@ types:
       'path': 'https://creativecommons.org/licenses/by/4.0'},
      'catalog_dir': '/home/zane/code/catalyst/pudl-catalog/src/pudl_catalog/'}}
 
+.. note::
+
+    If the data has not been cached this method might take a while to finish depending
+    on your internet speed. The EPA CEMS parquet data is almost 5 GB.
+
 Read some data from the catalog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
