@@ -21,12 +21,6 @@ sources:
       gross power output. Hourly values reported by US EIA ORISPL code and emissions
       unit (smokestack) ID.
     driver: parquet
-    parameters:
-      cache_method:
-        description: "Whether to cache data locally; empty string to disable caching."
-        type: str
-        default: "simplecache::"
-        allowed: ["simplecache::", ""]
     metadata:
       title: Continuous Emissions Monitoring System (CEMS) Hourly Data
       type: application/parquet
@@ -40,11 +34,13 @@ sources:
       engine: "pyarrow"
       split_row_groups: true
       index: false
-      urlpath: "{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet"
+      urlpath: "simplecache::{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems.parquet"
       storage_options:
         requester_pays: true
         gs:
           requester_pays: true
+        s3:
+          anon: true
         simplecache:
           cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
 
@@ -56,12 +52,6 @@ sources:
       gross power output. Hourly values reported by US EIA ORISPL code and emissions
       unit (smokestack) ID.
     driver: parquet
-    parameters:
-      cache_method:
-        description: "Whether to cache data locally; empty string to disable caching."
-        type: str
-        default: "simplecache::"
-        allowed: ["simplecache::", ""]
     metadata:
       title: Continuous Emissions Monitoring System (CEMS) Hourly Data
       type: application/parquet
@@ -75,11 +65,13 @@ sources:
       engine: "pyarrow"
       split_row_groups: true
       index: false
-      urlpath: "{{ cache_method }}{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet"
+      urlpath: "simplecache::{{ env(PUDL_INTAKE_PATH) }}/hourly_emissions_epacems/*.parquet"
       storage_options:
         requester_pays: true
         gs:
           requester_pays: true
+        s3:
+          anon: true
         simplecache:
           cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
 
@@ -93,6 +85,8 @@ sources:
       storage_options:
         gs:
           requester_pays: true
+        s3:
+          anon: true
         simplecache:
           cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
     metadata:
@@ -117,6 +111,8 @@ sources:
       storage_options:
         gs:
           requester_pays: true
+        s3:
+          anon: true
         simplecache:
           cache_storage: "{{ env(PUDL_INTAKE_CACHE) }}"
     metadata:
@@ -136,6 +132,8 @@ sources:
     args:
       urlpath: "{{ env(PUDL_INTAKE_PATH) }}/censusdp1tract.sqlite"
       storage_options:
+        s3:
+          anon: true
         gs:
           requester_pays: true
         simplecache:

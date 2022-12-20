@@ -2,6 +2,8 @@
 import logging
 import os
 import time
+import typing
+from pathlib import Path
 from typing import Literal, Optional
 
 import dask.dataframe as dd
@@ -24,9 +26,11 @@ logger = logging.getLogger(__name__)
 
 os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["gs"]
 
+InternetProtocol = Literal["gs", "https", "s3"]
+
 
 def parquet_url(
-    protocol: Literal["gs", "https"],
+    protocol: InternetProtocol,
     table_name: str,
     partition_suffix: Optional[str] = None,
 ) -> str:
@@ -34,8 +38,9 @@ def parquet_url(
     try:
         url = BASE_URLS[protocol]
     except KeyError:
+        valid_protocols = typing.get_args(InternetProtocol)
         raise ValueError(
-            f"Received invalid protocol: {protocol}. Must be one of 'gs' or 'https'."
+            f"Received invalid protocol: {protocol}. Must be one of {' or '.join(valid_protocols)}."
         )
     url = url + "/" + table_name
     if partition_suffix is None:
@@ -48,17 +53,17 @@ def expected_df() -> pd.DataFrame:
     """Read parquet data directly for comparison with Intake outputs."""
     logger.debug("Reading remote test data for comparison using pd.read_parquet().")
     epacems_url = parquet_url(
-        protocol="gs",
+        protocol="s3",
         table_name="hourly_emissions_epacems",
         partition_suffix=None,
     )
     expected_df = pd.read_parquet(
         epacems_url,
         filters=TEST_FILTERS,
-        storage_options={"requester_pays": True},
+        storage_options={"anon": True},
     )
     is_dataframe_like(expected_df)
-    assert expected_df.shape == (70_272, 19)
+    assert expected_df.shape == (70_272, 16)
     return expected_df
 
 
@@ -67,10 +72,12 @@ def expected_df() -> pd.DataFrame:
     [
         ("gs", None),
         ("gs", "_partitioned"),
+        ("s3", None),
+        ("s3", "_partitioned"),
     ],
 )
 def test_read_parquet(
-    protocol: Literal["gs", "https"],
+    protocol: InternetProtocol,
     partition_suffix: str,
     expected_df: pd.DataFrame,
 ) -> None:
@@ -82,7 +89,14 @@ def test_read_parquet(
         partition_suffix=partition_suffix,
     )
     start_time = time.time()
-    actual_dd = dd.read_parquet(epacems_url, storage_options={"requester_pays": True})
+
+    storage_options = {}
+    if protocol == "gs":
+        storage_options["requester_pays"] = True
+    elif protocol == "s3":
+        storage_options["anon"] = True
+    actual_dd = dd.read_parquet(epacems_url, storage_options=storage_options)
+
     elapsed_time = time.time() - start_time
     logger.debug(f"    elapsed time: {elapsed_time:.2f}s")
     is_dataframe_like(actual_dd)
@@ -94,22 +108,27 @@ def test_read_parquet(
     [
         ("gs", None),
         ("gs", "_partitioned"),
+        ("s3", None),
+        ("s3", "_partitioned"),
     ],
 )
 def test_intake_catalog(
-    protocol: Literal["gs", "https"],
+    protocol: InternetProtocol,
     partition_suffix: str,
     expected_df: pd.DataFrame,
+    tmp_path: Path,
 ) -> None:
     """Test reading data from the intake catalog."""
     logger.debug(f"intake_catalog, {protocol=}, {partition_suffix=}")
     os.environ["PUDL_INTAKE_PATH"] = BASE_URLS[protocol]
+    # Save the data to a temporary directory
+    os.environ["PUDL_INTAKE_CACHE"] = str(tmp_path)
     pudl_cat = intake.cat.pudl_cat
     src = "hourly_emissions_epacems"
     if partition_suffix is not None:
         src += partition_suffix
     start_time = time.time()
-    actual_dd = pudl_cat[src](cache_method="").to_dask()
+    actual_dd = pudl_cat[src].to_dask()
     elapsed_time = time.time() - start_time
     logger.debug(f"    elapsed time: {elapsed_time:.2f}s")
     is_dataframe_like(actual_dd)

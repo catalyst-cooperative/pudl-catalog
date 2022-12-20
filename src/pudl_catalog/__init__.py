@@ -13,10 +13,11 @@ logger.addHandler(logging.NullHandler())
 
 INTAKE_BUCKET = "intake.catalyst.coop"
 # Ideally we would set this version automatically using setuptools_scm...
-CATALOG_VERSION = "v0.1.1"
+CATALOG_VERSION = "dev"
 
 BASE_URLS = {
     "gs": f"gs://{INTAKE_BUCKET}/{CATALOG_VERSION}",
+    "s3": f"s3://{INTAKE_BUCKET}/{CATALOG_VERSION}",
     # HTTPS access doesn't really work well, so we're hiding it from users for now.
     "https": f"https://storage.googleapis.com/{INTAKE_BUCKET}/{CATALOG_VERSION}",
 }
@@ -25,9 +26,9 @@ BASE_URLS = {
 if os.getenv("PUDL_INTAKE_PATH") is None:
     logger.info(
         "Environment variable PUDL_INTAKE_PATH is not set. "
-        f"Defaulting to {BASE_URLS['gs']}"
+        f"Defaulting to {BASE_URLS['s3']}"
     )
-    os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["gs"]
+    os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["s3"]
 
 if os.getenv("PUDL_INTAKE_CACHE") is None:
     logger.info(
