@@ -218,28 +218,26 @@ on that dataframe to actually read the data and return a pandas dataframe:
        .to_dask()
        .compute()
    )
-   epacems_df[[
-       "plant_id_eia",
-       "unitid",
-       "operating_datetime_utc",
-       "year",
-       "state",
-       "facility_id",
-       "unit_id_epa",
-       "operating_time_hours",
-       "gross_load_mw",
-       "heat_content_mmbtu",
-       "co2_mass_tons",
-   ]].head()
+   cols = [
+       plant_id_eia,
+       operating_datetime_utc,
+       year,
+       state,
+       operating_time_hours,
+       gross_load_mw,
+       heat_content_mmbtu,
+       co2_mass_tons,
+   ]
+   epacems_df[cols].head()
 
 .. csv-table::
-   :header: plant_id_eia, unitid, operating_datetime_utc, year, state, facility_id, unit_id_epa, operating_time_hours, gross_load_mw, heat_content_mmbtu, co2_mass_tons
+   :header: plant_id_eia, operating_datetime_utc, year, state, operating_time_hours, gross_load_mw, heat_content_mmbtu, co2_mass_tons
 
-   469,4,2019-01-01 07:00:00+00:00,2019,CO,79,298,1.0,203.0,2146.2,127.2
-   469,4,2019-01-01 08:00:00+00:00,2019,CO,79,298,1.0,203.0,2152.7,127.6
-   469,4,2019-01-01 09:00:00+00:00,2019,CO,79,298,1.0,204.0,2142.2,127.0
-   469,4,2019-01-01 10:00:00+00:00,2019,CO,79,298,1.0,204.0,2129.2,126.2
-   469,4,2019-01-01 11:00:00+00:00,2019,CO,79,298,1.0,204.0,2160.6,128.1
+   469,2019-01-01 07:00:00+00:00,2019,CO,1.0,203.0,2146.2,127.2
+   469,2019-01-01 08:00:00+00:00,2019,CO,1.0,203.0,2152.7,127.6
+   469,2019-01-01 09:00:00+00:00,2019,CO,1.0,204.0,2142.2,127.0
+   469,2019-01-01 10:00:00+00:00,2019,CO,1.0,204.0,2129.2,126.2
+   469,2019-01-01 11:00:00+00:00,2019,CO,1.0,204.0,2160.6,128.1
 
 For more usage examples see `the Jupyter notebook <https://github.com/catalyst-cooperative/pudl-catalog/blob/main/notebooks/pudl-catalog.ipynb>`__ at ``notebooks/pudl-catalog.ipynb``
 
