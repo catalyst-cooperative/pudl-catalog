@@ -46,11 +46,12 @@ setup(
     zip_safe=False,
     python_requires=">=3.8,<3.12",
     install_requires=[
-        "boto3==1.24.59",
+        "boto3>=1.24.59,<2",
         "s3fs>=2021.7,<2022.11.1",
         "gcsfs>=2021.7,<2022.11.1",
+        "intake>=0.6.6,<0.7",
         "intake_parquet>=0.2.3,<0.3",
-        "intake_sqlite>=0.2.0",
+        "intake_sqlite>=0.2.0,<0.3",
         "msgpack>=1,<2",
     ],
     extras_require={
