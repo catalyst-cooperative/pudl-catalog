@@ -24,7 +24,7 @@ TEST_FILTERS = year_state_filter(years=TEST_YEARS, states=TEST_STATES)
 
 logger = logging.getLogger(__name__)
 
-os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["gs"]
+os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["s3"]
 
 InternetProtocol = Literal["gs", "https", "s3"]
 
