@@ -24,7 +24,7 @@ TEST_FILTERS = year_state_filter(years=TEST_YEARS, states=TEST_STATES)
 
 logger = logging.getLogger(__name__)
 
-os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["gs"]
+os.environ["PUDL_INTAKE_PATH"] = BASE_URLS["s3"]
 
 InternetProtocol = Literal["gs", "https", "s3"]
 
@@ -82,6 +82,11 @@ def test_read_parquet(
     expected_df: pd.DataFrame,
 ) -> None:
     """Test direct access via read_parquet()."""
+    if protocol == "gs":
+        pytest.skip(
+            "Skip GCS test until we figure out how to pull smaller partitions of the data to avoid large egress fees."
+        )
+
     logger.debug(f"read_parquet, {protocol=}, {partition_suffix=}")
     epacems_url = parquet_url(
         protocol=protocol,
@@ -119,6 +124,11 @@ def test_intake_catalog(
     tmp_path: Path,
 ) -> None:
     """Test reading data from the intake catalog."""
+    if protocol == "gs":
+        pytest.skip(
+            "Skip GCS test until we figure out how to pull smaller partitions of the data to avoid large egress fees."
+        )
+
     logger.debug(f"intake_catalog, {protocol=}, {partition_suffix=}")
     os.environ["PUDL_INTAKE_PATH"] = BASE_URLS[protocol]
     # Save the data to a temporary directory
