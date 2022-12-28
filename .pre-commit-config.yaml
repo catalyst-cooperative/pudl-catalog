@@ -90,15 +90,15 @@ repos:
         pass_filenames: false
         always_run: true
         entry: pytest --doctest-modules src/pudl_catalog tests/unit
+
 # Configuration for pre-commit.ci
-# ci:
-#   autofix_commit_msg: |
-#    [pre-commit.ci] auto fixes from pre-commit.com hooks
-#
-#    For more information, see https://pre-commit.ci
-# autofix_prs: true
-#  autoupdate_branch: main
-#  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
-#  autoupdate_schedule: weekly
-#  skip: [nb-output-clear, unit-tests]
-#  submodules: false
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+    For more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: main
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
+  autoupdate_schedule: weekly
+  skip: [nb-output-clear, unit-tests]
+  submodules: false
