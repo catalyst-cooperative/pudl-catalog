@@ -96,7 +96,7 @@ ci:
    [pre-commit.ci] auto fixes from pre-commit.com hooks
 
    For more information, see https://pre-commit.ci
-autofix_prs: true
+  autofix_prs: true
   autoupdate_branch: main
   autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
   # as close to "off" as we can manage... no way to actually disable  
