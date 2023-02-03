@@ -23,7 +23,7 @@ repos:
 
   # Make sure import statements are sorted uniformly.
   - repo: https://github.com/PyCQA/isort
-    rev: 5.11.4
+    rev: 5.12.0
     hooks:
       - id: isort
 
@@ -91,14 +91,15 @@ repos:
         always_run: true
         entry: pytest --doctest-modules src/pudl_catalog tests/unit
 # Configuration for pre-commit.ci
-# ci:
-#   autofix_commit_msg: |
-#    [pre-commit.ci] auto fixes from pre-commit.com hooks
-#
-#    For more information, see https://pre-commit.ci
-# autofix_prs: true
-#  autoupdate_branch: main
-#  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
-#  autoupdate_schedule: weekly
-#  skip: [nb-output-clear, unit-tests]
-#  submodules: false
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+    For more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: main
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
+  # as close to "off" as we can manage... no way to actually disable
+  autoupdate_schedule: quarterly
+  skip: [nb-output-clear, unit-tests]
+  submodules: false
