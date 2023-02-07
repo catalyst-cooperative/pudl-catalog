@@ -53,6 +53,7 @@ setup(
         "intake_parquet>=0.2.3,<0.3",
         "intake_sqlite>=0.2.0,<0.3",
         "msgpack>=1,<2",
+        "sqlalchemy>=1.3,<2",
     ],
     extras_require={
         "dev": [
