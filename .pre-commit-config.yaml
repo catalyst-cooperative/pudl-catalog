@@ -1,7 +1,7 @@
 repos:
   # Quick content checks based on grepping for python specific patterns:
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.9.0
+    rev: v1.10.0
     hooks:
       - id: python-check-blanket-noqa # Prohibit overly broad QA exclusions.
       - id: python-no-eval # Never use eval() it's dangerous.
@@ -23,7 +23,7 @@ repos:
 
   # Make sure import statements are sorted uniformly.
   - repo: https://github.com/PyCQA/isort
-    rev: 5.11.4
+    rev: 5.12.0
     hooks:
       - id: isort
 
@@ -99,6 +99,7 @@ ci:
   autofix_prs: true
   autoupdate_branch: main
   autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
-  autoupdate_schedule: weekly
+  # as close to "off" as we can manage... no way to actually disable
+  autoupdate_schedule: quarterly
   skip: [nb-output-clear, unit-tests]
   submodules: false
