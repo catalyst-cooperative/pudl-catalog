@@ -19,8 +19,8 @@ jobs:
         name: "Authenticate to Google Cloud"
         uses: "google-github-actions/auth@v1"
         with:
-          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
-          export_environment_variables: true
+          workload_identity_provider: "projects/345950277072/locations/global/workloadIdentityPools/gh-actions-pool/providers/gh-actions-provider"
+          service_account: "tox-pytest-github-action@catalyst-cooperative-pudl.iam.gserviceaccount.com"
 
       - name: Set up conda environment for testing
         uses: conda-incubator/setup-miniconda@v2.2.0
