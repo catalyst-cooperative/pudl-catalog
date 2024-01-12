@@ -1,3 +1,11 @@
+REPO IN STASIS
+========================================================================================
+After some experimentation we have decided not to use Intake data catalogs, so this
+repository is not currently being updated or maintained. We may repurpose it for use
+with another data catalog system, but for the time being, please see the
+`PUDL Data Access Documentation <https://catalystcoop-pudl.readthedocs.io/en/nightly/data_access.html>`__
+for instructions on how to access the data we publish.
+
 The PUDL Data Catalog
 =====================
 
